@@ -249,6 +249,7 @@ body {
 .card {
   border-radius: var(--radius); padding: 32px 28px;
   transition: transform var(--transition), box-shadow var(--transition);
+  text-align: center;
 }
 .card:hover { transform: translateY(-4px); }
 .card-dark {
@@ -351,7 +352,7 @@ body {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 40px; margin-top: 48px;
   max-width: 800px; margin-left: auto; margin-right: auto;
-  text-align: left;
+  text-align: center;
 }
 .gospel-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -372,13 +373,14 @@ body {
 .gospel-section p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.75; }
 .gospel-section--today {
   background: rgba(201,168,76,0.05); border: 1px solid var(--border-gold);
-  border-radius: 10px; padding: 20px;
+  border-radius: 10px; padding: 20px; text-align: center;
 }
 .gospel-section--today h4 { color: var(--gold); }
 .gospel-section--today p { color: var(--text); }
 .gospel-life {
-  display: flex; flex-direction: column; gap: 6px;
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
   padding: 20px; background: var(--bg-card-2); border-radius: 10px;
+  text-align: center;
 }
 .life-label {
   font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
@@ -387,7 +389,8 @@ body {
 .gospel-life strong { font-size: 1.05rem; color: var(--gold-light); }
 .gospel-question {
   font-size: 0.9rem; color: var(--text-dim); font-style: italic;
-  padding: 16px; border-left: 3px solid var(--gold); padding-left: 20px;
+  padding: 16px 20px; text-align: center;
+  border-top: 1px solid var(--border); margin-top: 4px;
 }
 .gospel-question span { font-weight: 600; font-style: normal; color: var(--text-muted); }
 
@@ -396,9 +399,9 @@ body {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 40px; margin-top: 48px;
   max-width: 800px; margin-left: auto; margin-right: auto;
-  text-align: left;
+  text-align: center;
 }
-.homily-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.homily-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; justify-content: center; }
 .tag {
   font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted);
@@ -411,12 +414,12 @@ body {
 }
 .homily-preview p, .homily-full p {
   font-size: 0.97rem; color: var(--text-dim); line-height: 1.85;
-  margin-bottom: 16px;
+  margin-bottom: 16px; text-align: left;
 }
 .homily-full { display: none; margin-top: 8px; }
 .homily-full.visible { display: block; animation: fadeInUp 0.4s ease; }
 .homily-actions {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px;
   margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border);
 }
 .audio-player { display: flex; align-items: center; gap: 12px; }
@@ -427,7 +430,7 @@ body {
   background: var(--bg-card); border: 1px solid var(--border-gold);
   border-radius: var(--radius); padding: 40px; margin-top: 48px;
   max-width: 640px; margin-left: auto; margin-right: auto;
-  text-align: left;
+  text-align: center;
 }
 .liturgy-card h3 {
   font-family: var(--font-display); font-size: 1.4rem;
@@ -435,7 +438,7 @@ body {
 }
 .liturgy-steps {
   list-style: none; display: flex; flex-direction: column; gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 32px; text-align: left;
 }
 .liturgy-steps li {
   display: flex; align-items: center; gap: 16px;
@@ -507,7 +510,7 @@ body {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 40px; margin-top: 48px;
   max-width: 720px; margin-left: auto; margin-right: auto;
-  text-align: left;
+  text-align: center;
 }
 .dialog-controls { text-align: center; }
 .dialog-topic {
@@ -516,7 +519,7 @@ body {
   margin-bottom: 28px;
 }
 .dialog-content { display: flex; flex-direction: column; gap: 20px; }
-.dialog-line { display: flex; flex-direction: column; gap: 6px; }
+.dialog-line { display: flex; flex-direction: column; gap: 6px; align-items: center; }
 .speaker {
   font-size: 0.72rem; font-weight: 800; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--text-muted);
@@ -524,6 +527,7 @@ body {
 .speech {
   font-family: var(--font-display); font-size: 1.05rem;
   color: var(--text); line-height: 1.65; font-style: italic;
+  max-width: 560px;
 }
 .dialog-line.jesus { padding: 20px; background: var(--gold-dim); border-radius: 10px; }
 .dialog-line.jesus .speaker { color: var(--gold); }
@@ -533,18 +537,18 @@ body {
 .parishes-grid {
   display: flex; flex-direction: column; gap: 24px;
   margin-top: 48px; max-width: 700px;
-  margin-left: auto; margin-right: auto; text-align: left;
+  margin-left: auto; margin-right: auto;
 }
 .parish-item {
-  display: flex; align-items: flex-start; gap: 24px;
-  padding: 24px; background: var(--bg-card);
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding: 32px 28px; background: var(--bg-card);
   border: 1px solid var(--border); border-radius: var(--radius-sm);
-  transition: border-color var(--transition);
+  transition: border-color var(--transition); text-align: center;
 }
 .parish-item:hover { border-color: var(--border-gold); }
 .parish-num {
   font-size: 0.72rem; font-weight: 800; color: var(--gold);
-  background: var(--gold-dim); width: 40px; height: 40px;
+  background: var(--gold-dim); width: 44px; height: 44px;
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -554,13 +558,13 @@ body {
 /* ===== ETHICS ===== */
 .ethics-list {
   display: flex; flex-direction: column; gap: 16px;
-  margin-top: 48px; text-align: left;
+  margin-top: 48px;
 }
 .ethics-item {
-  display: flex; align-items: flex-start; gap: 16px;
-  padding: 16px 20px; background: var(--bg-card);
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 18px 24px; background: var(--bg-card);
   border: 1px solid var(--border); border-radius: var(--radius-sm);
-  font-size: 1rem; color: var(--text-dim);
+  font-size: 1rem; color: var(--text-dim); text-align: center;
   transition: background var(--transition);
 }
 .ethics-item:hover { background: var(--bg-card-2); }
@@ -581,7 +585,7 @@ body {
 /* ===== MANIFEST ===== */
 .manifest-text {
   margin-top: 48px; display: flex; flex-direction: column; gap: 24px;
-  text-align: left;
+  text-align: center;
 }
 .manifest-text p {
   font-family: var(--font-display); font-size: clamp(1.1rem, 2.5vw, 1.4rem);
