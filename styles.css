@@ -438,11 +438,11 @@ body {
 }
 .liturgy-steps {
   list-style: none; display: flex; flex-direction: column; gap: 16px;
-  margin-bottom: 32px; text-align: left;
+  margin-bottom: 32px;
 }
 .liturgy-steps li {
-  display: flex; align-items: center; gap: 16px;
-  font-size: 0.95rem; color: var(--text-dim);
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  font-size: 0.95rem; color: var(--text-dim); text-align: center;
 }
 .step-num {
   font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
