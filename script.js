@@ -175,12 +175,73 @@ homilyToggle.addEventListener('click', () => {
   homilyToggle.textContent = open ? 'Skrýt ↑' : 'Přečíst celou homilii ↓';
 });
 
-document.getElementById('audioBtn').addEventListener('click', function () {
-  this.querySelector('.audio-note') && null;
-  this.nextElementSibling.textContent = '🎧 Audio verze se připravuje…';
-  setTimeout(() => {
-    this.nextElementSibling.textContent = 'Audio verze — brzy k dispozici';
-  }, 2800);
+/* ===== TTS AUDIO PLAYER ===== */
+const homilyText = `Byl jednou člověk, který měl všechno. Rychlý internet. Plnou lednici. Tisíce přátel na sociální síti. Každý den nové zážitky, nový obsah, nové podněty. A přesto — nebo možná právě proto — každý večer ležel v posteli s pocitem, že mu chybí něco zásadního, co neumí pojmenovat.
+
+Don Bosco říkával, že hlad duše je hlubší než hlad těla. Dnešní svět umí nakrmit tělo. Ale duši? Na to nemá recept. Nebo spíš — ztratil kulinářskou knihu.
+
+Ježíš v dnešním evangeliu mluví o chlebu. Ale nemluví o pšenici ani o pekárně. Mluví o hladu, který jídlo nenasytí. O žízni, kterou voda neuhasí. Kdo přijde ke mně, nebude hladovět. Kdo věří ve mě, nebude žíznit nikdy.
+
+To zní jako reklama. Jenže Ježíš není influencer. Není guru. Není lifecoach. On ví, co chybí — protože on sám je tím, co chybí.
+
+Papež František jednou řekl: Církev není celnice, která prověřuje, kdo je hoden vstoupit. Je to polní nemocnice pro raněné. Přijď takový, jaký jsi. Hladový. Unavený. Plný pochybností. To je správná adresa.
+
+Výzva na tento týden: Jeden večer bez telefonu. Bez obsahu. Jen ticho a otázka: Co skutečně potřebuji? Ne co chci. Co potřebuji.`;
+
+let ttsUtterance = null;
+let ttsPlaying = false;
+
+const audioBtn = document.getElementById('audioBtn');
+const audioNote = audioBtn.nextElementSibling;
+
+audioBtn.addEventListener('click', function () {
+  if (!('speechSynthesis' in window)) {
+    audioNote.textContent = 'Váš prohlížeč nepodporuje hlasové přehrávání.';
+    return;
+  }
+
+  if (ttsPlaying) {
+    window.speechSynthesis.cancel();
+    ttsPlaying = false;
+    audioBtn.innerHTML = '<span class="audio-icon">▶</span> Pustit jako audio';
+    audioNote.textContent = 'Přehrávání zastaveno.';
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  ttsUtterance = new SpeechSynthesisUtterance(homilyText);
+  ttsUtterance.lang = 'cs-CZ';
+  ttsUtterance.rate = 0.92;
+  ttsUtterance.pitch = 1;
+
+  // Prefer Czech voice if available
+  const voices = window.speechSynthesis.getVoices();
+  const czVoice = voices.find(v => v.lang.startsWith('cs')) ||
+                  voices.find(v => v.lang.startsWith('sk'));
+  if (czVoice) ttsUtterance.voice = czVoice;
+
+  ttsUtterance.onstart = () => {
+    ttsPlaying = true;
+    audioBtn.innerHTML = '<span class="audio-icon">■</span> Zastavit';
+    audioNote.textContent = '🔊 Přehrávám homilii…';
+  };
+  ttsUtterance.onend = ttsUtterance.onerror = () => {
+    ttsPlaying = false;
+    audioBtn.innerHTML = '<span class="audio-icon">▶</span> Pustit jako audio';
+    audioNote.textContent = 'Přehrávání dokončeno.';
+  };
+
+  // Voices may load asynchronously — retry once after load
+  if (voices.length === 0) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      const v = window.speechSynthesis.getVoices();
+      const cz = v.find(x => x.lang.startsWith('cs')) || v.find(x => x.lang.startsWith('sk'));
+      if (cz) ttsUtterance.voice = cz;
+      window.speechSynthesis.speak(ttsUtterance);
+    };
+  } else {
+    window.speechSynthesis.speak(ttsUtterance);
+  }
 });
 
 /* ===== LITURGY MODAL ===== */
