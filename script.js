@@ -320,7 +320,7 @@ const dialogs = [
       { speaker: 'Petr',   speech: '"Pane, lidé mají všechno. A přesto jsou nešťastní."' },
       { speaker: 'Tomáš',  speech: '"Možná už nevěří ničemu, protože slyšeli příliš mnoho lží."' },
       { speaker: 'Jan',    speech: '"Možná je nikdo dlouho opravdu neviděl."' },
-      { speaker: 'Ježíš',  speech: '"Nehledejte nejdřív odpověď. Najděte člověka, kterého jste přestali milovat."', jesus: true }
+      { speaker: 'Hlas evangelia',  speech: '"Nehledejte nejdřív odpověď. Najděte člověka, kterého jste přestali milovat."', jesus: true }
     ]
   },
   {
@@ -329,7 +329,7 @@ const dialogs = [
       { speaker: 'Tomáš',  speech: '"Pane, lidé se ptají stroje na smysl života. Je to špatně?"' },
       { speaker: 'Petr',   speech: '"Stroj jim odpovídá rychle. My jsme jim nic neříkali."' },
       { speaker: 'Jan',    speech: '"Možná je to naše selhání, ne selhání technologie."' },
-      { speaker: 'Ježíš',  speech: '"Každý bůh, jehož si člověk vytvoří, odráží jeho hlad. Kdo jim ukáže, po čem skutečně hladoví?"', jesus: true }
+      { speaker: 'Hlas evangelia',  speech: '"Každý bůh, jehož si člověk vytvoří, odráží jeho hlad. Kdo jim ukáže, po čem skutečně hladoví?"', jesus: true }
     ]
   },
   {
@@ -338,7 +338,7 @@ const dialogs = [
       { speaker: 'Šimon',  speech: '"Pane, na světě zuří válka. Kde jsi?"' },
       { speaker: 'Jakub',  speech: '"Mocní se dělí o území. Slabí platí životem."' },
       { speaker: 'Petr',   speech: '"Proč mlčíš, když padají bomby?"' },
-      { speaker: 'Ježíš',  speech: '"Já nemlčím. Mlčí ti, kteří mají moc zastavit a nevyužijí ji. Hledejte je. Pojmenujte je. A nebuďte jako oni."', jesus: true }
+      { speaker: 'Hlas evangelia',  speech: '"Já nemlčím. Mlčí ti, kteří mají moc zastavit a nevyužijí ji. Hledejte je. Pojmenujte je. A nebuďte jako oni."', jesus: true }
     ]
   },
   {
@@ -347,7 +347,7 @@ const dialogs = [
       { speaker: 'Jidáš',  speech: '"Svět je bohatší než kdykoliv. Proč v něm tolik chudoby?"' },
       { speaker: 'Matouš', speech: '"Protože bohatství se nerozdává. Akumuluje."' },
       { speaker: 'Jan',    speech: '"Viděl jsem lidi, kteří mají miliony — a zároveň neumí spát."' },
-      { speaker: 'Ježíš',  speech: '"Žaludek může být plný a srdce prázdné. Poklady na zemi rezaví. Ale člověk, kterému jsi pomohl, na tebe nezapomene nikdy."', jesus: true }
+      { speaker: 'Hlas evangelia',  speech: '"Žaludek může být plný a srdce prázdné. Poklady na zemi rezaví. Ale člověk, kterému jsi pomohl, na tebe nezapomene nikdy."', jesus: true }
     ]
   },
   {
@@ -356,7 +356,7 @@ const dialogs = [
       { speaker: 'Jan',    speech: '"Pane, mladí odcházejí. Kostely se vyprazdňují."' },
       { speaker: 'Ondřej', speech: '"Hledají smysl. Jen ho nenacházejí tam, kde jsme jim ukázali."' },
       { speaker: 'Petr',   speech: '"Možná jsme jim dávali odpovědi, než se stačili zeptat."' },
-      { speaker: 'Ježíš',  speech: '"Nikdy jsem nenutil. Vždy jsem zval. Naslouchejte jejich otázkám, než otevřete svá ústa. Víra, která přichází jako odpověď na skutečnou otázku, zůstane."', jesus: true }
+      { speaker: 'Hlas evangelia',  speech: '"Nikdy jsem nenutil. Vždy jsem zval. Naslouchejte jejich otázkám, než otevřete svá ústa. Víra, která přichází jako odpověď na skutečnou otázku, zůstane."', jesus: true }
     ]
   },
   {
@@ -365,7 +365,7 @@ const dialogs = [
       { speaker: 'Bartoloměj', speech: '"Pane, mladí se bojí, že planeta neumře přirozenou smrtí — ale naší."' },
       { speaker: 'Tomáš',      speech: '"Já tomu nerozumím. To je věda, ne víra."' },
       { speaker: 'Jan',        speech: '"Ale strach z konce světa — to znám z evangelia."' },
-      { speaker: 'Ježíš',      speech: '"Zahrada, kterou jsem svěřil člověku, nebyla jeho majetek. Byla jeho odpovědnost. Péče o zemi není politika. Je to modlitba."', jesus: true }
+      { speaker: 'Hlas evangelia',      speech: '"Zahrada, kterou jsem svěřil člověku, nebyla jeho majetek. Byla jeho odpovědnost. Péče o zemi není politika. Je to modlitba."', jesus: true }
     ]
   },
   {
@@ -374,7 +374,7 @@ const dialogs = [
       { speaker: 'Petr',          speech: '"Pane, kněží ubývá. Kdo povede stádo?"' },
       { speaker: 'Pavel',         speech: '"Každý pokřtěný je povolán. Proč čekáme na jednoho?"' },
       { speaker: 'Maří Magdaléna', speech: '"Já první zvěstovala vzkříšení — a nebyla jsem kněz."' },
-      { speaker: 'Ježíš',         speech: '"Církev není hierarchie. Je to tělo. Nezeptejte se: kde je kněz? Zeptejte se: kde jsem já — a co mohu udělat já?"', jesus: true }
+      { speaker: 'Hlas evangelia',         speech: '"Církev není hierarchie. Je to tělo. Nezeptejte se: kde je kněz? Zeptejte se: kde jsem já — a co mohu udělat já?"', jesus: true }
     ]
   }
 ];
