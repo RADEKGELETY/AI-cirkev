@@ -260,141 +260,158 @@ function closeModal() {
 
 /* ===== CONSCIENCE CHAT ===== */
 
-// Témata a klíčová slova pro rozpoznání kontextu
-const topics = [
-  {
-    keys: ['lh', 'lhal', 'lhala', 'lež', 'podvod', 'podvedl', 'podvedla', 'klam', 'zatajil', 'zatajila'],
-    responses: [
-      '„Pravda vás osvobodí." (Jan 8,32) Lež nás uvězní — ne protože nás Bůh trestá, ale protože žijeme v rozporu sami se sebou. Co tě vedlo k tomu, říct nepravdu? Byl to strach? Snaha ochránit sebe nebo druhého?',
-      'Augustin z Hippo napsal: „Naše srdce je neklidné, dokud nespočine v tobě, Bože." Nepravda je někdy pokus o klid, který ale pravý klid nenese. Byl/a bys schopen/schopna říct pravdu tomu, koho jsi oklamal/a?',
-      'Papež František říká: „Milosrdenství je srdcem evangelia." Bůh neprohledává tvou minulost, aby tě odsoudil — hledá tě, aby tě osvobodil. Jak dlouho tuto lež neseš?'
-    ]
-  },
-  {
-    keys: ['zlost', 'vztek', 'hněv', 'křičel', 'křičela', 'udeřil', 'udeřila', 'napadl', 'napadla', 'zranil', 'zranila'],
-    responses: [
-      '„Hněváte-li se, nehřešte. Slunce ať nezapadá nad vaším hněvem." (Ef 4,26) Hněv sám o sobě není hřích — je to signál. Co se za tím hněvem skrývá? Bolest? Strach? Pocit nespravedlnosti?',
-      'Tomáš Akvinský učil, že hněv namířený proti skutečné nespravedlnosti může být spravedlivý. Ale hněv, který ubližuje druhým, nás samotné poškozuje nejvíc. Komu jsi ublížil/a a jak to s tebou teď žije?',
-      'Don Bosco říkával svým chlapcům: „Kdo se ovládne, je silnější než ten, kdo dobývá města." Snáze se ovládáme, když rozumíme, co nás rozpaluje. Co ti ten člověk nebo situace vlastně vzali?'
-    ]
-  },
-  {
-    keys: ['pýcha', 'pyšný', 'pyšná', 'namyšlený', 'namyšlená', 'arogance', 'nadřazenost', 'lepší než'],
-    responses: [
-      '„Kdo se povyšuje, bude ponížen; kdo se ponižuje, bude povýšen." (Lk 14,11) Pýcha je zvláštní past — čím víc se drží, tím více izoluje. Co ti dává pocit nadřazenosti? A za co se ve skutečnosti bojíš?',
-      'Benedikt z Nursie v Řeholi píše, že první stupeň pokory je uznat, že nic nevlastníme jako své — ani talent, ani inteligenci, ani úspěch. Všechno jsme dostali. Co jsi dnes dostal/a a za co je snadné přisuzovat zásluhy sobě?',
-      'Papež Jan Pavel II. říkal: „Člověk nemůže sám sebe plně pochopit bez Krista." Pýcha je pokus pochopit se bez toho vztahu. Kdo tě v životě opravdu zná — i tvojí stínovou stránku?'
-    ]
-  },
-  {
-    keys: ['závist', 'závidím', 'závidět', 'žárlím', 'žárlivost', 'má víc', 'proč on', 'proč ona', 'nespravedlivé'],
-    responses: [
-      '„Láska nezávidí." (1 Kor 13,4) Závist je bolestný stav — vidíme u druhého to, co si přejeme pro sebe. Co konkrétně závidíš? A říká ti to něco o tom, co ve svém životě postrádáš?',
-      'Sv. Jan Zlatoústý napsal: „Závidět je jako vypít jed a čekat, že zemře druhý." Závist nás ničí zevnitř, zatímco druhého se nedotýká. Jak by vypadal tvůj život, kdybys tu energii přesměroval/a na rozvoj sebe?',
-      'Tereza z Lisieux říkávala: „Nejsem svatá, která upadla z nebe — jsem duše, která sbírá milosti na zemi." Každý z nás má jinou cestu. Co je na tvé vlastní cestě hodnotné, i když to teď nevidíš?'
-    ]
-  },
-  {
-    keys: ['odpuštění', 'odpustit', 'neodpustím', 'neodpouštím', 'zradil', 'zradila', 'ublížil', 'ublížila', 'ukřivdil'],
-    responses: [
-      '„Odpusťte, a bude vám odpuštěno." (Lk 6,37) Odpuštění není smazání minulosti ani souhlas s křivdou. Je to rozhodnutí propustit druhého z vězení, které jsme mu v srdci postavili — a sebe z něj také. Co se stalo?',
-      'C.S. Lewis napsal: „Odpustit neznamená říci, že nezáleželo na tom, co se stalo. Znamená to říci: nezáleží mi na tom natolik, abych tím dál trávil svůj život." Jak dlouho to neseš?',
-      'Papež František v exhortaci Amoris Laetitia píše: „Odpuštění je obnova vztahu po zklamání." Někdy to trvá roky. Není to slabost — vyžaduje to více síly než nenávist. Chceš jednou odpustit, nebo si nejsi jistý/á?'
-    ]
-  },
-  {
-    keys: ['samota', 'sám', 'sama', 'osamělý', 'osamělá', 'nikdo', 'nezáleží jim', 'nerozumí', 'cítím se ztracen'],
-    responses: [
-      '„Bůh usazuje osamělé v domě, vede vězně k blahobytu." (Ž 68,7) Samota je jedna z nejhlubších bolestí. Ale i v ní není člověk úplně sám — Bůh hledá ty, které ostatní přehlíží. Jak dlouho se takto cítíš?',
-      'Matka Tereza říkávala: „Největší nemocí dnešní doby není lepra ani tuberkulóza — je to pocit, že nikdo o nás nestojí." Tenhle pocit je reálný. Pomohlo by ti mluvit o tom s někým živým — knězem, psychologem, přítelem?',
-      'Žalm 139 říká: „Kamkoli jdu, ty jsi tam." Bůh neodchází, i když ho necítíme. Ale samota bývá znamení, že potřebujeme také lidské společenství. Je ve tvém okolí někdo, ke komu bys mohl/a udělat první krok?'
-    ]
-  },
-  {
-    keys: ['strach', 'bojím', 'bojím se', 'úzkost', 'úzkostný', 'panika', 'nevím co bude', 'budoucnost', 'nevím jak dál'],
-    responses: [
-      '„Neboj se, já jsem tě vykoupil, povolal jsem tě jménem tvým, ty jsi můj." (Iz 43,1) Strach je přirozený — ale nemusí řídit náš život. Co konkrétně se bojíš ztratit nebo co se bojíš, že nastane?',
-      'Filipským 4,6–7: „O nic nemějte starost, ale ve všem předkládejte Bohu své potřeby v modlitbě a prosbě s děkováním. A pokoj Boží, převyšující každé pomyšlení, bude střežit vaše srdce." Zkusil/a jsi to s Bohem někdy takto otevřeně probrat?',
-      'Sv. Faustyna Kowalská v Deníčku píše: „Ježíši, důvěřuji ti." Pět slov. Nebyl to pocit — bylo to rozhodnutí. Který konkrétní strach chceš dnes pojmenovat a svěřit dál?'
-    ]
-  },
-  {
-    keys: ['hřích', 'hřeším', 'hřešil', 'hřešila', 'špatný', 'špatná', 'zlo', 'špatně jsem', 'udělal jsem', 'udělala jsem'],
-    responses: [
-      '„Přijďte ke mně všichni, kdo se namáháte a jste obtíženi, a já vám dám odpočinout." (Mt 11,28) Bůh nepřichází ke spravedlivým — přichází k těm, kdo vědí, že selžou. Co konkrétně tě tíží?',
-      'Sv. Jan Maria Vianney, farář arský, říkával: „Bůh je ochotnější odpustit než my jsme ochotni prosit." Největší překážka odpuštění nejsme my sami — jsme to my a naše přesvědčení, že nejsme hodni. Jak to vidíš ty?',
-      'Lukáš 15 — podobenství o marnotratném synu: Otec nečekal na omluvu. Běžel synovi naproti, ještě když byl daleko. Bůh nečeká, až se opravíme. Chceš udělat první krok k sakramentální zpovědi?'
-    ]
-  },
-  {
-    keys: ['smysl', 'proč žiji', 'nemá cenu', 'k ničemu', 'prázdnota', 'nic necítím', 'vyhoření', 'unavený', 'unavená', 'ztratil jsem', 'ztratila jsem'],
-    responses: [
-      '„Já jsem přišel, aby měli život a měli ho v hojnosti." (Jan 10,10) Prázdnota bývá zpráva, ne rozsudek. Říká: hledej jinam. Co ti dřív dávalo smysl a teď to ztratilo sílu?',
-      'Viktor Frankl, psychiatr z koncentračního tábora, napsal: „Člověk může přežít jakékoli jak, pokud má proč." Co je tvoje proč? A kdy jsi to naposledy jasně věděl/a?',
-      'Sv. Ignác z Loyoly začal Exercicie touto větou: „Člověk je stvořen, aby chválil Boha a tím spasil svou duši." Ale dodal: musíš nejprve zjistit, co tě vnitřně pohybuje. Co tě dnes ráno přimělo vstát?'
-    ]
-  },
-  {
-    keys: ['vztah', 'manžel', 'manželka', 'partner', 'partnerka', 'rozchod', 'rozvod', 'nevěra', 'podvedl', 'podvedla', 'láska'],
-    responses: [
-      '„Láska je trpělivá, laskavá, nezávidí, nehledá svůj prospěch." (1 Kor 13) Vztahy jsou místo, kde se nejvíce ukazujeme takoví, jací jsme. Co je ve tvém vztahu nebo ztrátě vztahu to, co tě nejvíc bolí?',
-      'Sv. Jana z Arku říkávala: „Kdo miluje Boha, miluje i lidi." A naopak — neschopnost milovat lidi bývá znamení, že potřebujeme být napřed milováni sami. Cítíš se ve svém vztahu viděn/a a přijímán/a?',
-      'Amoris Laetitia, apoštolská exhortace Františka: „Žádný vztah nelze budovat na laciném sentimentu — pravá láska je volba, která se každý den obnovuje." Co ti ta situace říká o tobě samotném/samotné?'
-    ]
-  },
-  {
-    keys: ['závislost', 'alkohol', 'drogy', 'porno', 'gambling', 'hazard', 'nemohu přestat', 'nemohu se ovládnout', 'telefon', 'sociální sítě'],
-    responses: [
-      '„Všechno mi je dovoleno, ale ne všechno prospívá. Všechno mi je dovoleno, ale ničím se nedám zotročit." (1 Kor 6,12) Závislost je forma otroctví — ne morální výpadek, ale nemoc duše i těla. Jak dlouho to trvá?',
-      'Sv. Augustin napsal v Vyznáních: „Naše srdce je neklidné, dokud nespočine v tobě." Mnohé závislosti jsou pokus uklidnit to neklidné srdce. Co cítíš těsně předtím, než sáhneš po té věci?',
-      'Papeže Benedikt XVI. řekl: „Kde Bůh není, tam se člověk stává malým." Závislost potřebuje odbornou pomoc — psychologa, skupinu, terapeuta. To není slabost. Je to odvaha. Víš, kde takovou pomoc hledat?'
-    ]
-  },
-  {
-    keys: ['víra', 'nevěřím', 'pochybuji', 'pochybnosti', 'bůh neexistuje', 'kde je bůh', 'proč bůh', 'ztratil jsem víru', 'ztratila jsem víru'],
-    responses: [
-      'Tomáš v evangeliu říká: „Dokud neuvidím, neuvěřím." A Ježíš mu odpovídá — přijde a ukáže. Pochybnost není hřích. Je to poctivost. Co konkrétně tě přivedlo k pochybnostem?',
-      'Kardinál John Henry Newman napsal: „Deset tisíc obtíží nevytváří jednu pochybnost." Pochybnosti a ztráta víry jsou různé věci. Co hledáš — jistotu, nebo smysl?',
-      'Papa František v Evangelii Gaudium píše: „Kdo hledá Boha a chce ho nalézat, ten ho už nalézá." Bůh se nebojí tvých otázek. Co by ses Ho dnes odvážil/a zeptat, kdybys věřil/a, že naslouchá?'
-    ]
-  }
-];
+// Konverzační paměť
+const conversationState = {
+  turn: 0,           // kolikátá zpráva od uživatele
+  lastTopic: null,   // poslední rozpoznané téma
+  deepened: false,   // jestli jsme už šli do hloubky
+};
 
-// Fallback odpovědi — spirituálně hluboké, ne generické
-const fallbackResponses = [
-  'Žalm 139 říká: „Zkoumej mě, Bože, a poznej mé srdce, vyzkoušej mě a poznej mé myšlenky." Tohle je pozvání — ne k odsouzení, ale k poznání. Co v sobě poznáváš, když jsi upřímný/á?',
-  'Sv. Terezie z Ávily psala: „Znej sebe, znej Boha — to jsou dvě největší cesty." Co o sobě teď vidíš, co dřív nebylo vidět?',
-  'Ježíš se ptá v evangeliu znovu a znovu: „Co chceš, abych pro tebe udělal?" (Mk 10,51) Ne co si zasloužíš. Ne co ti přísluší. Co chceš? Co opravdu potřebuješ?',
-  '„Bůh je láska. Kdo zůstává v lásce, zůstává v Bohu a Bůh v něm." (1 Jan 4,16) Toto není podmíněné dokonalostí. Je to podmíněné jen tím, že zůstáváme — i s tíhou, i s pochybnostmi.',
-  'Don Bosco říkal: „Stačí, abyste byli mladí a já vás miluji." Nahraď slovo mladí svým jménem. Stačí, že jsi. Co ti to dělá?',
-  'Sv. Ignác z Loyoly učil rozeznávat duchy: Co tě vede k větší svobodě, klidu a lásce — to je Bůh. Co tě vede k uzavření, strachu a sebeničení — to není On. Co teď cítíš?',
-  '„Přijdu a uzdravím ho." (Mt 8,7) Ježíš to říká ještě před příchodem k nemocnému. Dřív, než víme, co přesně potřebujeme. Co bys dnes chtěl/a, aby bylo uzdraveno?',
-  'Matka Tereza řekla: „Bůh nechce, abychom byli úspěšní — chce, abychom byli věrní." Co znamená věrnost pro tebe konkrétně dnes?'
+// Normalizace textu pro matching
+function norm(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+// ── DETEKCE TÉMATU ──────────────────────────────────────────────
+const topicMap = [
+  { id: 'lez',       keys: ['lhal', 'lhala', 'lez', 'podvod', 'podvedl', 'podvedla', 'klam', 'zatajil', 'zatajila', 'nepravda'] },
+  { id: 'hnev',      keys: ['zlost', 'vztek', 'hnev', 'krici', 'uderil', 'uderila', 'zranil', 'zranila', 'agrese', 'napadl'] },
+  { id: 'pycha',     keys: ['pycha', 'pysny', 'pysna', 'namysleny', 'arogan', 'nadrazen', 'lepsi nez', 'pohlizim'] },
+  { id: 'zavist',    keys: ['zavist', 'zavidim', 'zavidet', 'zarlimost', 'zarli', 'proc on', 'proc ona', 'ma vic'] },
+  { id: 'odpusteni', keys: ['odpustit', 'neodpustim', 'neodpoustim', 'zradil', 'zradila', 'ubliži', 'ukrivdil', 'odpusteni', 'brigna', 'krivda'] },
+  { id: 'samota',    keys: ['samota', 'sam ', 'sama ', 'osamel', 'nikdo mi', 'nezalezi jim', 'nerozumi mi', 'ztracen', 'izolovan'] },
+  { id: 'strach',    keys: ['strach', 'bojim', 'uzkost', 'panika', 'nevim co bude', 'budoucnost', 'nevim jak dal', 'nevim co delat'] },
+  { id: 'hrich',     keys: ['hrich', 'hresim', 'hresil', 'hresila', 'spatne jsem', 'udelal jsem', 'udelala jsem', 'spatny clovek', 'spatna'] },
+  { id: 'smysl',     keys: ['smysl', 'proc ziji', 'nema cenu', 'k nicemu', 'prazdnota', 'nic necitim', 'vyhoren', 'unaveny', 'unavena', 'ztratil jsem', 'ztratila jsem', 'deprese'] },
+  { id: 'vztah',     keys: ['manzel', 'manzelka', 'partner', 'partnerka', 'rozchod', 'rozvod', 'nevera', 'vztah', 'laska skonc', 'odsel', 'odesla'] },
+  { id: 'zavislost', keys: ['alkohol', 'drogy', 'porno', 'gambl', 'hazard', 'nemohu prestat', 'nemohu se ovladat', 'zavislost', 'navyk'] },
+  { id: 'vira',      keys: ['neveri', 'pochybuji', 'pochybnosti', 'buh neexist', 'kde je buh', 'ztratil jsem viru', 'ztratila jsem viru', 'prestal jsem verit'] },
 ];
 
 function detectTopic(text) {
-  const lower = text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-  for (const topic of topics) {
-    const normalizedKeys = topic.keys.map(k =>
-      k.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
-    );
-    if (normalizedKeys.some(k => lower.includes(k))) return topic;
+  const t = norm(text);
+  for (const topic of topicMap) {
+    if (topic.keys.some(k => t.includes(norm(k)))) return topic.id;
   }
   return null;
 }
 
-const topicResponseCounters = new WeakMap();
+// ── PRVNÍ VRSTVA: empatické přijetí ─────────────────────────────
+const firstLayerByTopic = {
+  lez:       'To, že to říkáš, je samo o sobě malá odvaha. Lhát je těžké — a nesení té lži bývá ještě těžší. Kdy to začalo? Byl to jeden moment, nebo se to nějak postupně vrstvilo?',
+  hnev:      'Slyším tě. Hněv bývá jedna z nejosamocenějších věcí — uvnitř hoříš, a ostatní většinou netuší. Stalo se něco konkrétního, co to spustilo? Nebo to bylo dlouho pod povrchem?',
+  pycha:     'Být upřímný k sobě v tomhle — to je víc, než si myslíš. Pýcha se těžko pojmenovává. Kdy sis toho naposledy všiml/a na sobě? V čem konkrétně?',
+  zavist:    'Tohle bolí, že? Vidět u druhého něco, co chceš, a cítit se kvůli tomu menší. Čeho se ta závist vlastně týká — věcí, vztahů, nebo třeba uznání, které ti někdo nedal?',
+  odpusteni: 'Odpuštění je asi jedna z nejtěžších věcí, co existuje. Ne proto, že jsme špatní — ale proto, že bolest je reálná. Co se ti stalo? Pokud chceš, řekni mi víc.',
+  samota:    'To, co popisuješ, je opravdová bolest. Samota uprostřed lidí je jiná než samota v tichu — bývá daleko hlubší. Jak dlouho se tak cítíš?',
+  strach:    'Rozumím. Strach dokáže být tichý i hlasitý zároveň — a vyčerpává. Čeho konkrétně se bojíš? Z čeho se probouzíš v noci, nebo co tě napadá, když se zastavíš?',
+  hrich:     'Jsem rád/a, že jsi to řekl/a. Tady není soud. To, že to neseš, znamená, že ti záleží — a to je důležité. Co se stalo? Nebo co tě tíží?',
+  smysl:     'To, co popisuješ, je těžké. Prázdnota nebo pocit, že to nemá cenu — to není slabost, je to signál. Kdy naposledy jsi cítil/a, že tvůj život má smysl? Co se tehdy dělo?',
+  vztah:     'Vztahy jsou místo, kde jsme nejvíc zranitelní. A taky nejvíc živí. Co se děje? Chceš mi říct víc o tom, co prožíváš?',
+  zavislost: 'Díky, že to říkáš. Tohle se říká těžko. Závislost není selhání charakteru — je to past, ze které se nevychází silou vůle samotnou. Jak dlouho s tím bojuješ?',
+  vira:      'Pochybovat není selhat. Je to poctivé. Ježíš měl kolem sebe lidi, kteří pochybovali — a nevyhnal je. Co se ti stalo s vírou? Kdy to začalo mizet?',
+};
 
+// ── DRUHÁ VRSTVA: prohloubení + moudrost ────────────────────────
+const secondLayerByTopic = {
+  lez: [
+    'Augustin napsal ve Vyznáních: „Naše srdce je neklidné, dokud nespočine v tobě." Lež bývá pokus o klid, který ale pravý klid nenese — protože uvnitř víme. Co tě k té nepravdě vedlo? Strach? Ochrana sebe nebo druhého?',
+    'Ježíš neřekl: „Já jsem pravidlo." Řekl: „Já jsem pravda." (Jan 14,6) To je jiné — pravda není zákon, je to setkání. Kdybys mohl/a říct pravdu bez trestu, co bys řekl/a?',
+  ],
+  hnev: [
+    'Pavel píše: „Hněváte-li se, nehřešte. Slunce ať nezapadá nad vaším hněvem." (Ef 4,26) Hněv sám není hřích — je to signál. Za každým hlubokým hněvem bývá buď strach, nebo bolest. Co je u tebe pod tím hněvem?',
+    'Don Bosco říkával: „Kdo se ovládne, je silnější než ten, kdo dobývá města." Ale ovládat nestačí — je třeba pochopit. Co ti ten člověk nebo situace vlastně vzali? Bezpečí? Důstojnost? Lásku?',
+  ],
+  pycha: [
+    'Benedikt z Nursie v Řeholi píše, že pokora začíná tím, že přijmeme, že nic nevlastníme jako čistě své — ani talent, ani úspěch. Všechno je dar. Je něco, za co si bereš zásluhy, a přitom to cítíš jako křehké?',
+    'Jan Pavel II. říkal: „Člověk nemůže sám sebe plně pochopit bez Krista." Pýcha je pokus pochopit se bez vztahu — bez toho, že nás někdo zná i tam, kde nejsme nejlepší. Kdo tě takto zná?',
+  ],
+  zavist: [
+    'Tereza z Lisieux psala: „Nejsem svatá, která upadla z nebe — jsem duše, která sbírá milosti na zemi." Každý z nás má jinou cestu a jinou rychlost. Co je hodnotné na tvé vlastní cestě, i když to teď nevidíš?',
+    'Jan Zlatoústý napsal: „Závidět je jako vypít jed a čekat, že zemře druhý." Závist nás ničí zevnitř. Ale pod ní bývá oprávněný hlad — po uznání, lásce, úspěchu. Co konkrétně ti chybí?',
+  ],
+  odpusteni: [
+    'C.S. Lewis napsal: „Odpustit neznamená říci, že nezáleželo na tom, co se stalo. Znamená to říci: nezáleží mi na tom natolik, abych tím dál trávil svůj život." Jak dlouho to s sebou neseš? A kolik energie ti to bere?',
+    'Lukáš 15 — otec vidí syna zdaleka a běží mu naproti. Nečeká na omluvu. To je obraz Boha — ne soudce s čekacím listem, ale otec, který sleduje horizont. Kde jsi ty v tom příběhu?',
+  ],
+  samota: [
+    'Matka Tereza říkávala: „Největší nemocí dnešní doby není lepra — je to pocit, že nikdo o nás nestojí." Tenhle pocit je opravdový. A zároveň — i ten pocit může být začátek otevření. Je někdo, komu bys dnes mohl/a zavolat?',
+    'Žalm 139: „Kamkoli jdu, ty jsi tam. I kdybych si ustlal v podsvětí, jsi tam." Bůh neodchází, i když ho necítíme. Ale samota bývá také znamení, že potřebujeme lidské společenství. Co ti v tom brání?',
+  ],
+  strach: [
+    'Izaiáš 43: „Neboj se, já jsem tě vykoupil, povolal jsem tě tvým jménem, ty jsi můj." Tato slova nebyla řečena lidem bez problémů — byla řečena lidem v exilu, v rozpadlém světě. Zkusil/a jsi někdy říct ten strach Bohu přímo? Bez zbožné formulace — jen tak, jak to je?',
+    'Sv. Faustyna psala v Deníčku: „Ježíši, důvěřuji ti." Ne jako pocit — jako rozhodnutí. Někdy je víra jen tohle: udělat jeden krok, i když nevíme, co bude dál. Jaký by byl tvůj jeden krok dnes?',
+  ],
+  hrich: [
+    'Sv. Jan Maria Vianney říkával: „Bůh je ochotnější odpustit než my jsme ochotni prosit." Největší překážka odpuštění nejsme naše skutky — je to přesvědčení, že jsme neodpustitelní. Cítíš se hoden/hodna odpuštění?',
+    'Ježíš říká v Matoušovi: „Nepřišel jsem volat spravedlivé, ale hříšníky." (Mt 9,13) Ne jako výtku — jako pozvání. Bůh nepřichází ke spravedlivým. Přichází k těm, kdo vědí, že selžou. Kde se teď nacházíš ty?',
+  ],
+  smysl: [
+    'Viktor Frankl přežil koncentrační tábor a napsal: „Člověk může přežít jakékoli jak, pokud má proč." Co bylo tvoje proč — dřív? A kdy to začalo ztrácet sílu?',
+    'Ignác z Loyoly říkal: musíš zjistit, co tě vnitřně pohybuje — co tě osvobozuje a co tě svírá. To, co tě pohybuje k větší svobodě a lásce, je Bůh. Co tě teď pohybuje? Kam?',
+  ],
+  vztah: [
+    'František v Amoris Laetitia píše: „Pravá láska je volba, která se každý den obnovuje." Vztahy nejsou stav — jsou to pohyby. Kde cítíš, že se pohyb zastavil? Co chybí?',
+    'Píseň písní říká: „Jsem nemocná láskou." (2,5) Bible neidealizuje vztahy — zná jejich krásu i bolest. Co ve tvém vztahu nebo ztrátě vztahu tě bolí nejvíc?',
+  ],
+  zavislost: [
+    'Augustin v Vyznáních: „Naše srdce je neklidné, dokud nespočine v tobě." Mnohé závislosti jsou pokus uklidnit neklidné srdce — rychle, spolehlivě, bez čekání. Co cítíš těsně předtím, než sáhneš po té věci?',
+    'Pavel píše: „Ničím se nedám zotročit." (1 Kor 6,12) Závislost je forma otroctví — ne morální výpadek, ale nemoc duše i těla. A stejně jako každá nemoc — potřebuje pomoc zvenku. Víš, kde ji hledat?',
+  ],
+  vira: [
+    'Tomáš říká Ježíšovi: „Dokud neuvidím, neuvěřím." A Ježíš přijde a ukáže — bez výčitky. Pochybnost není hřích. Je to poctivost. Co konkrétně tě přivedlo k pochybnostem — byl to zážitek, nebo postupné vyčerpání?',
+    'Newman napsal: „Srdce mluví k srdci." Víra se neobnoví argumenty — obnovuje se setkáním. S lidmi, s tichem, s příběhem. Je ve tvém životě někdo nebo něco, co tě k víře ještě táhne, i slabě?',
+  ],
+};
+
+// ── TŘETÍ VRSTVA: završení, pozvání dál ─────────────────────────
+const thirdLayer = [
+  'Tohle, co jsi dnes řekl/a, nezmizí. Zůstane s tebou — a snad trochu jinak. Není to konec rozhovoru, je to možná začátek. Přemýšlíš, že bys to jednou probral/a s živým člověkem — knězem, terapeutem, nebo přítelem, kterému věříš?',
+  'Jsem jenom AI. Neumím tě rozhřešit ani tě obejmout. Ale tohle — pojmenovat to nahlas — je víc, než si myslíš. Ježíš říká: „Pravda vás osvobodí." Možná je tohle první krok. Co teď cítíš?',
+  'Jedno slovo od Františka: „Bůh se nikdy neunaví odpouštět. My se unavíme prosit." Jestli v tobě ještě zbývá kousek touhy se vrátit — Bůh je otevřený. Co by byl tvůj první krok zpátky?',
+  'Tenhle rozhovor má své hranice. Ale ty ho nemáš — můžeš jít hlouběji, s živým člověkem. Je ve tvém životě kněz, duchovní průvodce nebo terapeut, kterému bys mohl/a tohle svěřit?',
+];
+
+// ── FALLBACKY pro nerozpoznaný text ─────────────────────────────
+const fallbacks = [
+  'Jsem tady a poslouchám. Nemusíš to formulovat dokonale — řekni to tak, jak to je. Co se děje?',
+  'Rozumím, že je to těžké pojmenovat. Zkus začít od toho, co tě teď tíží nejvíc — třeba jednou větou.',
+  'Žalm 139 říká: „Zkoumej mě, Bože, a poznej mé srdce." Tohle není odsouzení — je to pozvání k upřímnosti. Co bys chtěl/a, aby Bůh o tobě věděl?',
+  'Ježíš se ptá v evangeliu: „Co chceš, abych pro tebe udělal?" (Mk 10,51) Prostá otázka. Co bys odpověděl/a?',
+  'Někdy je nejtěžší věc říct to první. Co tě sem dnes přivedlo?',
+];
+
+// ── HLAVNÍ LOGIKA ODPOVĚDI ───────────────────────────────────────
 function getResponse(userText) {
   const topic = detectTopic(userText);
-  if (topic) {
-    const count = topicResponseCounters.get(topic) || 0;
-    const response = topic.responses[count % topic.responses.length];
-    topicResponseCounters.set(topic, count + 1);
-    return response;
+  const turn = conversationState.turn;
+  conversationState.turn++;
+
+  // Ulož téma, pokud nové
+  if (topic) conversationState.lastTopic = topic;
+  const activeTopic = topic || conversationState.lastTopic;
+
+  // 1. zpráva — empatické přijetí, žádné citáty
+  if (turn === 0) {
+    if (activeTopic && firstLayerByTopic[activeTopic]) {
+      return firstLayerByTopic[activeTopic];
+    }
+    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
   }
-  const idx = Math.floor(Math.random() * fallbackResponses.length);
-  return fallbackResponses[idx];
+
+  // 2.–3. zpráva — prohloubení s moudrostí
+  if (turn <= 2 && activeTopic && secondLayerByTopic[activeTopic]) {
+    const pool = secondLayerByTopic[activeTopic];
+    const idx = (turn - 1) % pool.length;
+    return pool[idx];
+  }
+
+  // 4.+ zpráva — završení, pozvání k živému člověku
+  if (turn >= 3) {
+    return thirdLayer[turn % thirdLayer.length];
+  }
+
+  return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }
 
 const chatMessages = document.getElementById('chatMessages');
