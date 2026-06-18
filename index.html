@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ORATORAI — Digitální oratoř pro věk umělé inteligence</title>
-  <meta name="description" content="ORATORAI je digitální oratoř pro dobu, kdy mladí hledají smysl online, kněží ubývá a umělá inteligence se stává novým jazykem lidstva. Víra, člověk a AI v dialogu." />
+  <title>ORATORAI — Někdy pomůže říct to nahlas.</title>
+  <meta name="description" content="Prostor pro otázky, které si většina lidí nechává pro sebe." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,432 +20,160 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#chapel">Kaple</a></li>
-        <li><a href="#evangelium">Evangelium</a></li>
-        <li><a href="#homilie">Homilie</a></li>
-        <li><a href="#conscience">Svědomí</a></li>
-        <li><a href="#apostles">Stůl apoštolů</a></li>
+        <li><a href="#svedomi">Svědomí</a></li>
+        <li><a href="#hlasy">Hlasy</a></li>
         <li><a href="#manifest">Manifest</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- A: HERO -->
   <section id="hero">
-    <div class="hero-bg">
-      <div class="hero-rays"></div>
-      <div class="hero-particles" id="heroParticles"></div>
-    </div>
+    <div class="hero-ambient"></div>
     <div class="hero-content">
-      <p class="hero-label fade-in">ORATORAI &nbsp;·&nbsp; DIGITÁLNÍ ORATOŘ</p>
+      <div class="hero-brand fade-in">ORATOR<span class="gold">AI</span></div>
       <h1 class="hero-title fade-in delay-1">
-        Církev nezmizí.<br/>
-        <span class="gold">Jen se musí<br/>znovu narodit.</span>
+        Někdy pomůže<br/><span class="gold">říct to nahlas.</span>
       </h1>
       <p class="hero-sub fade-in delay-2">
-        ORATORAI je digitální oratoř pro dobu, kdy mladí hledají smysl online, kněží ubývá a umělá inteligence se stává novým jazykem lidstva.
+        Prostor pro otázky, které si většina lidí nechává pro sebe.
       </p>
-      <div class="hero-cta fade-in delay-3">
-        <a href="#chapel" class="btn btn-primary">Vstoupit do digitální kaple</a>
-        <a href="#evangelium" class="btn btn-ghost">Dnešní evangelium</a>
-        <a href="#conscience" class="btn btn-ghost">Rozhovor se svědomím</a>
+      <div class="hero-input-wrap fade-in delay-3">
+        <textarea
+          class="hero-textarea"
+          id="heroInput"
+          placeholder="O čem teď přemýšlíte?"
+          rows="3"
+        ></textarea>
+        <button class="btn-start" id="heroStart">Začít rozhovor</button>
       </div>
-      <p class="hero-warning fade-in delay-4">
-        AI není Bůh. AI není kněz. Ale může být mostem k víře pro generaci, která už do kostela nepřišla.
-      </p>
+      <p class="hero-note fade-in delay-4">AI není Bůh. AI není kněz.</p>
     </div>
     <div class="hero-scroll">
       <span class="scroll-line"></span>
-      <span class="scroll-text">scrolluj dolů</span>
     </div>
   </section>
 
-  <!-- PROČ TO VZNIKÁ -->
-  <section id="why" class="section">
-    <div class="container">
-      <div class="section-label reveal">Kontext &amp; výzva</div>
-      <h2 class="section-title reveal">Svět se změnil.<br/><span class="gold">Církev zatím ne.</span></h2>
-      <p class="section-text reveal">
-        Kněží ubývá. Mladí odcházejí. Kostely se vyprazdňují. Ale touha po smyslu, odpuštění, naději a Bohu nezmizela. Jen se přesunula jinam — do digitálního světa, do telefonu, do ticha nočních rozhovorů s AI.
-      </p>
-      <div class="cards-grid three-col">
-        <div class="card card-dark reveal">
-          <div class="card-icon">⛪</div>
-          <h3>Kostely se vyprazdňují</h3>
-          <p>Průměrný věk věřících roste. Každou neděli je o pár set lidí méně. Čas nečeká.</p>
-        </div>
-        <div class="card card-dark reveal delay-1">
-          <div class="card-icon">📱</div>
-          <h3>Mladí hledají jinde</h3>
-          <p>Smysl, spiritualitu, odpovědi na velké otázky — hledají je na internetu. Kdo tam bude pro ně?</p>
-        </div>
-        <div class="card card-dark reveal delay-2">
-          <div class="card-icon">🤖</div>
-          <h3>AI se stává novým duchovním prostorem</h3>
-          <p>Miliony lidí svěřují AI své nejhlubší otázky. Bude tam i evangelium?</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DIGITÁLNÍ KAPLE -->
-  <section id="chapel" class="section section-chapel">
-    <div class="container">
-      <div class="section-label reveal">Prostor ticha</div>
-      <h2 class="section-title reveal">Digitální kaple<br/><span class="gold">otevřená 24/7</span></h2>
-      <p class="section-text reveal">
-        Místo, kde se můžeš zastavit. Bez čekání. Bez strachu. Bez přetvářky. Ne jako náhrada kostela, ale jako první krok zpět k Bohu, sobě i druhým.
-      </p>
-      <div class="chapel-card reveal">
-        <div class="chapel-light">
-          <div class="chapel-cross"></div>
-          <div class="chapel-glow"></div>
-        </div>
-        <p class="chapel-invite">Tady je ticho. Tady je prostor. Tady jsi vítán/a.</p>
-        <button class="btn btn-primary" id="chapelBtn">Ztišit se</button>
-        <div class="chapel-prayer" id="chapelPrayer">
-          <blockquote>
-            „Bože, pokud jsi tady, nauč mě znovu slyšet.<br/>
-            Ne svět. Ne hluk. Ale pravdu."
-          </blockquote>
-          <p class="prayer-note">Zůstaň chvíli v tichu. Dech. Přítomnost.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MYŠLENKA DNE -->
-  <section id="thought" class="section">
+  <!-- B: SVĚDOMÍ -->
+  <section id="svedomi" class="section">
     <div class="container narrow">
-      <div class="section-label reveal">Každý den</div>
-      <h2 class="section-title reveal"><span class="gold">Myšlenka</span> dne</h2>
-      <div class="thought-card reveal">
-        <div class="thought-quote" id="thoughtQuote">
-          „Máme víc spojení než kdykoli v dějinách. Proč jsme tedy tak sami?"
-        </div>
-        <div class="thought-question" id="thoughtQuestion">
-          Otázka dne: <em>Komu dnes skutečně nasloucháš?</em>
-        </div>
-        <div class="thought-challenge" id="thoughtChallenge">
-          Výzva dne: Dnes někomu zavolej. Ne zpráva. Hlas.
-        </div>
-        <button class="btn btn-ghost btn-sm" id="nextThought">Další myšlenka →</button>
-      </div>
-    </div>
-  </section>
+      <div class="section-eyebrow reveal">Svědomí</div>
+      <h2 class="section-heading reveal">
+        Bezpečný prostor<br/>
+        <span class="gold">pro věci, které jste ještě nikdy neřekli nahlas.</span>
+      </h2>
 
-  <!-- EVANGELIUM DNE -->
-  <section id="evangelium" class="section section-dark">
-    <div class="container">
-      <div class="section-label reveal">Živé slovo</div>
-      <h2 class="section-title reveal">Evangelium<br/><span class="gold">pro dnešní jazyk</span></h2>
-      <p class="section-text reveal">
-        Ne starý text v muzeu. Živé slovo pro člověka, který řeší vztahy, úzkost, práci, technologie, samotu a smysl.
-      </p>
-      <div class="gospel-card reveal">
-        <div class="gospel-header">
-          <span class="gospel-tag">Jan 8, 1–11</span>
-          <span class="gospel-date" id="gospelDate"></span>
+      <!-- Ukázkový dialog -->
+      <div class="example-dialog reveal">
+        <div class="ex-msg ex-user">
+          <span class="ex-bubble">Mám strach, že jsem selhal.</span>
         </div>
-        <div class="gospel-sections">
-          <div class="gospel-section">
-            <h4>Evangelium</h4>
-            <p>„Kdo z vás je bez hříchu, ať první hodí kamenem." Nikdo nebyl. Žena zůstala stát. Ježíš se sklonil a psal do písku, jako by čas neexistoval. Pak vzhlédl: „Ani já tě neodsuzuji. Jdi a nehřeš více."</p>
-          </div>
-          <div class="gospel-section">
-            <h4>Co znamenalo tehdy</h4>
-            <p>Zákoníci chtěli Ježíše chytit do pasti. Místo toho je postavil před jejich vlastní hřích. Ženu, která měla zemřít, propustil s důstojností.</p>
-          </div>
-          <div class="gospel-section gospel-section--today">
-            <h4>Co znamená dnes</h4>
-            <p>Sociální sítě jsou plné lidí házejících kameny. Každý den linčujeme cizí chyby, zatímco zakrýváme vlastní. Ježíš nepřišel potvrdit naše soudy. Přišel je rozbít.</p>
-          </div>
-          <div class="gospel-life">
-            <span class="life-label">Jedna věta pro život</span>
-            <strong>„Než odsoudíš, zeptej se: co já sám/sama skrývám?"</strong>
-          </div>
-          <div class="gospel-question">
-            <span>Otázka do dne:</span> Na koho dnes hodíš kámen — online nebo ve svém srdci?
-          </div>
+        <div class="ex-msg ex-ai">
+          <div class="ex-ai-mark"></div>
+          <span class="ex-bubble">Co vás na tom bolí nejvíc? Samotné selhání, nebo strach, že už to nepůjde napravit?</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- NEDĚLNÍ AI HOMILIE -->
-  <section id="homilie" class="section">
-    <div class="container">
-      <div class="section-label reveal">Nedělní slovo</div>
-      <h2 class="section-title reveal"><span class="gold">AI homilie</span><br/>na neděli</h2>
-      <p class="section-text reveal">
-        10–15 minutové kázání pro svět, který už nerozumí kostelním frázím.
-      </p>
-      <p class="section-subtext reveal">
-        Homilie čerpá z Bible, tradice církve, myšlenek svatých, papežů, salesiánské spirituality a současného života. Je psaná jazykem dnešního člověka.
-      </p>
-      <div class="homily-card reveal">
-        <div class="homily-tags">
-          <span class="tag">Bible</span>
-          <span class="tag">Don Bosco</span>
-          <span class="tag">Papež František</span>
-          <span class="tag">Mladí</span>
-          <span class="tag">AI</span>
-          <span class="tag">Dnešní svět</span>
-        </div>
-        <h3 class="homily-title">„Proč jsme tak hladoví, když máme všeho dost?"</h3>
-        <div class="homily-preview">
-          <p>Byl jednou člověk, který měl všechno. Rychlý internet. Plnou lednici. Tisíce přátel na sociální síti. Každý den nové zážitky, nový obsah, nové podněty. A přesto — nebo možná právě proto — každý večer ležel v posteli s pocitem, že mu chybí něco zásadního, co neumí pojmenovat.</p>
-          <p>Don Bosco říkával, že hlad duše je hlubší než hlad těla. Dnešní svět umí nakrmit tělo. Ale duši? Na to nemá recept. Nebo spíš — ztratil kulinářskou knihu.</p>
-        </div>
-        <div class="homily-full" id="homilyFull">
-          <p>Ježíš v dnešním evangeliu mluví o chlebu. Ale nemluví o pšenici ani o pekárně. Mluví o hladu, který jídlo nenasytí. O žízni, kterou voda neuhasí. „Kdo přijde ke mně, nebude hladovět. Kdo věří ve mě, nebude žíznit nikdy."</p>
-          <p>To zní jako reklama. Jenže Ježíš není influencer. Není guru. Není lifecoach. On ví, co chybí — protože on sám je tím, co chybí.</p>
-          <p>Papež František jednou řekl: „Církev není celnice, která prověřuje, kdo je hoden vstoupit. Je to polní nemocnice pro raněné." Přijď takový, jaký jsi. Hladový. Unavený. Plný pochybností. To je správná adresa.</p>
-          <p>Výzva na tento týden: Jeden večer bez telefonu. Bez obsahu. Jen ticho a otázka: Co skutečně potřebuji? Ne co chci. Co potřebuji.</p>
-        </div>
-        <div class="homily-actions">
-          <button class="btn btn-ghost btn-sm" id="homilyToggle">Přečíst celou homilii ↓</button>
-          <div class="audio-player">
-            <button class="btn-audio" id="audioBtn">
-              <span class="audio-icon">▶</span> Pustit jako audio
-            </button>
-            <span class="audio-note">Audio verze — brzy k dispozici</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DIGITÁLNÍ MŠE -->
-  <section id="mass" class="section section-dark">
-    <div class="container">
-      <div class="section-label reveal">Nedělní slavení</div>
-      <h2 class="section-title reveal">Když kněz chybí,<br/><span class="gold">společenství nesmí zmlknout.</span></h2>
-      <p class="section-text reveal">
-        ORATORAI nenahrazuje eucharistii. Ale pomáhá komunitám, které nemají kněze, žít neděli: čtením evangelia, společnou modlitbou, AI homilií, přímluvami, tichem a výzvou ke službě.
-      </p>
-      <div class="liturgy-card reveal">
-        <h3>Nedělní liturgie slova</h3>
-        <ul class="liturgy-steps">
-          <li><span class="step-num">01</span><span>Úvodní zastavení a ztišení</span></li>
-          <li><span class="step-num">02</span><span>Čtení ze Starého zákona</span></li>
-          <li><span class="step-num">03</span><span>Evangelium dne</span></li>
-          <li><span class="step-num">04</span><span>AI homilie</span></li>
-          <li><span class="step-num">05</span><span>Přímluvy společenství</span></li>
-          <li><span class="step-num">06</span><span>Společná modlitba</span></li>
-          <li><span class="step-num">07</span><span>Výzva týdne ke konkrétní službě</span></li>
-        </ul>
-        <button class="btn btn-primary" id="liturgyBtn">Spustit nedělní setkání</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ROZHOVOR SE SVĚDOMÍM -->
-  <section id="conscience" class="section">
-    <div class="container narrow">
-      <div class="section-label reveal">Prostor pravdy</div>
-      <h2 class="section-title reveal">Zpovědnice budoucnosti?<br/><span class="gold">Ne. První krok<br/>ke skutečné zpovědi.</span></h2>
-      <p class="section-text reveal">
-        AI nemůže odpustit hříchy. Nemůže dát rozhřešení. Nemůže nahradit kněze. Ale může být místem, kde si člověk poprvé po letech dovolí říct pravdu.
-      </p>
+      <!-- Živý rozhovor -->
       <div class="chat-ui reveal">
         <div class="chat-messages" id="chatMessages">
           <div class="chat-msg ai">
-            <span class="chat-avatar">✦</span>
-            <span>Jsem tady. Toto je prostor bez odsuzování. Co tě teď tíží?</span>
+            <div class="chat-mark"></div>
+            <span class="chat-bubble">Jsem tady. Co dnes nesete?</span>
           </div>
         </div>
-        <div class="chat-input-row">
-          <input type="text" class="chat-input" id="chatInput" placeholder="Co tě teď tíží?" />
-          <button class="btn btn-primary btn-sm" id="chatSend">Odeslat</button>
+        <div class="chat-bottom">
+          <textarea
+            class="chat-input"
+            id="chatInput"
+            placeholder="Napište cokoli. Nikdo jiný to neuvidí."
+            rows="2"
+          ></textarea>
+          <button class="chat-send" id="chatSend" aria-label="Odeslat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
         </div>
-        <div class="chat-warning">
-          <span class="warning-icon">⚠</span>
-          Toto není svátost smíření. V případě vážné krize vyhledej skutečného člověka, kněze nebo odbornou pomoc.
-        </div>
+        <p class="chat-disclaimer">Toto není svátost smíření. V krizi vyhledej skutečného člověka.</p>
       </div>
     </div>
   </section>
 
-  <!-- STŮL APOŠTOLŮ -->
-  <section id="apostles" class="section section-dark">
+  <!-- C: KOMUNITA HLASŮ -->
+  <section id="hlasy" class="section section-dark">
     <div class="container">
-      <div class="section-label reveal">Duchovní imaginace</div>
-      <h2 class="section-title reveal">Kdyby Ježíš dnes seděl<br/><span class="gold">u jednoho stolu s apoštoly…</span></h2>
-      <p class="section-sub-label reveal">Každodenní desetiminutový dialog nad světem, který ztrácí duši.</p>
-      <p class="section-text reveal">
-        Nejde o skutečného Ježíše ani zjevení. Jde o duchovní imaginaci inspirovanou evangeliem: jak by se Ježíš a apoštolové dívali na války, AI, sociální sítě, samotu, bohatství, moc a strach dnešního světa?
-      </p>
+      <div class="section-eyebrow reveal">Komunita hlasů</div>
+      <h2 class="section-heading reveal">
+        Šest perspektiv.<br/><span class="gold">Jeden záměr.</span>
+      </h2>
+
+      <div class="voices-grid reveal">
+        <div class="voice-card" data-dialog="0">
+          <div class="voice-name">Petr</div>
+          <div class="voice-line">Pochyboval. Zapřel. Vrátil se.</div>
+        </div>
+        <div class="voice-card" data-dialog="4">
+          <div class="voice-name">Jan</div>
+          <div class="voice-line">Miloval bez podmínek.</div>
+        </div>
+        <div class="voice-card" data-dialog="1">
+          <div class="voice-name">Tomáš</div>
+          <div class="voice-line">Pochyboval, dokud neuviděl.</div>
+        </div>
+        <div class="voice-card" data-dialog="3">
+          <div class="voice-name">Pavel</div>
+          <div class="voice-line">Propadl fanatismu. Pak se změnil.</div>
+        </div>
+        <div class="voice-card voice-card--gospel" data-dialog="5">
+          <div class="voice-name">Evangelium</div>
+          <div class="voice-line">Živé slovo pro dnešní den.</div>
+        </div>
+        <div class="voice-card voice-card--silence" id="silenceCard">
+          <div class="voice-name">Ticho</div>
+          <div class="voice-line">Modlitba bez slov.</div>
+        </div>
+      </div>
+
+      <!-- Dialog apoštolů -->
       <div class="dialog-card reveal" id="dialogCard">
-        <div class="dialog-topic" id="dialogTopic">Téma: Samota v době sociálních sítí</div>
-        <div class="dialog-content" id="dialogContent">
-          <div class="dialog-line">
-            <span class="speaker">Petr</span>
-            <span class="speech">„Pane, lidé mají všechno. A přesto jsou nešťastní."</span>
-          </div>
-          <div class="dialog-line">
-            <span class="speaker">Tomáš</span>
-            <span class="speech">„Možná už nevěří ničemu, protože slyšeli příliš mnoho lží."</span>
-          </div>
-          <div class="dialog-line">
-            <span class="speaker">Jan</span>
-            <span class="speech">„Možná je nikdo dlouho opravdu neviděl."</span>
-          </div>
-          <div class="dialog-line jesus">
-            <span class="speaker gold">Ježíš</span>
-            <span class="speech gold-text">„Nehledejte nejdřív odpověď. Najděte člověka, kterého jste přestali milovat."</span>
-          </div>
-        </div>
+        <div class="dialog-topic" id="dialogTopic"></div>
+        <div class="dialog-content" id="dialogContent"></div>
+        <button class="btn-ghost btn-sm dialog-next" id="nextDialog">Zobrazit další dialog →</button>
       </div>
-      <div class="dialog-controls reveal">
-        <button class="btn btn-ghost" id="nextDialog">Zobrazit dnešní dialog →</button>
+
+      <!-- Kaple (ticho) -->
+      <div class="chapel-card" id="chapelCard" style="display:none;">
+        <div class="chapel-light">
+          <div class="chapel-glow"></div>
+          <div class="chapel-cross"></div>
+        </div>
+        <p class="chapel-invite">Tady je ticho. Tady jsi vítán.</p>
+        <button class="btn btn-ghost btn-sm" id="chapelBtn">Zobrazit modlitbu</button>
+        <div class="chapel-prayer" id="chapelPrayer">
+          <blockquote>
+            Bože, pokud jsi tady, nauč mě znovu slyšet.<br/>
+            Ne svět. Ne hluk. Ale pravdu.
+          </blockquote>
+          <p class="prayer-note">Zůstaň chvíli v tichu. Dech. Přítomnost.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm chapel-back-btn" id="chapelBack">← Zpět k hlasům</button>
       </div>
     </div>
   </section>
 
-  <!-- DIGITÁLNÍ SPOLEČENSTVÍ -->
-  <section id="community" class="section">
-    <div class="container">
-      <div class="section-label reveal">Zpět k lidem</div>
-      <h2 class="section-title reveal">Víra nesmí skončit<br/><span class="gold">u obrazovky.</span></h2>
-      <p class="section-text reveal">
-        Digitální církev má vést zpět ke skutečnému člověku. Ke skupině. Ke službě. Ke komunitě. K reálnému životu.
-      </p>
-      <div class="cards-grid five-col">
-        <div class="card card-outline reveal">
-          <div class="card-icon">👥</div>
-          <h3>Online skupinky</h3>
-          <p>Malé komunity sdílející víru přes video, text a modlitbu.</p>
-        </div>
-        <div class="card card-outline reveal delay-1">
-          <div class="card-icon">☕</div>
-          <h3>Synodální kavárny</h3>
-          <p>Otevřená setkání v kavárnách. Evangelium, otázky, káva.</p>
-        </div>
-        <div class="card card-outline reveal delay-2">
-          <div class="card-icon">🕯️</div>
-          <h3>Modlitba v tichu</h3>
-          <p>Společná ticha. Online. Synchronizovaná. Sdílená přítomnost.</p>
-        </div>
-        <div class="card card-outline reveal delay-3">
-          <div class="card-icon">❓</div>
-          <h3>Mladí a otázky víry</h3>
-          <p>Prostor pro velké otázky bez jednoduchých odpovědí.</p>
-        </div>
-        <div class="card card-outline reveal delay-4">
-          <div class="card-icon">🤝</div>
-          <h3>Pomoc farnostem bez kněží</h3>
-          <p>Nástroje pro laiky vedoucí neděli bez kněze.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRO FARNOSTI BEZ KNĚZE -->
-  <section id="parishes" class="section section-dark">
-    <div class="container">
-      <div class="section-label reveal">Pastorace budoucnosti</div>
-      <h2 class="section-title reveal">Když nebude kněz,<br/><span class="gold">víra nesmí zhasnout.</span></h2>
-      <p class="section-text reveal">
-        V mnoha farnostech nebude v budoucnu pravidelně přítomný kněz. ORATORAI může pomoci komunitám připravit nedělní setkání, číst evangelium, sdílet homilii, vést přímluvy, otevřít otázky a držet společenství pohromadě.
-      </p>
-      <div class="parishes-grid reveal">
-        <div class="parish-item">
-          <div class="parish-num">1</div>
-          <div>
-            <h4>Šablona nedělního setkání</h4>
-            <p>Krok za krokem průvodce pro laiky vedoucí liturgii slova.</p>
-          </div>
-        </div>
-        <div class="parish-item">
-          <div class="parish-num">2</div>
-          <div>
-            <h4>AI homilie pro vaši komunitu</h4>
-            <p>Každou neděli nová homilie přizpůsobená životu farnosti.</p>
-          </div>
-        </div>
-        <div class="parish-item">
-          <div class="parish-num">3</div>
-          <div>
-            <h4>Otázky pro sdílení</h4>
-            <p>Podněty pro skupinové rozhovory po evangeliu.</p>
-          </div>
-        </div>
-        <div class="parish-item">
-          <div class="parish-num">4</div>
-          <div>
-            <h4>Společná modlitba</h4>
-            <p>Texty přímluv a modliteb pro různé situace komunity.</p>
-          </div>
-        </div>
-        <div class="parish-item">
-          <div class="parish-num">5</div>
-          <div>
-            <h4>Výzva ke konkrétní službě</h4>
-            <p>Každý týden jiná výzva — ne abstraktní, ale reálná a lokální.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ETICKÉ HRANICE -->
-  <section id="ethics" class="section">
-    <div class="container narrow">
-      <div class="section-label reveal">Jasné hranice</div>
-      <h2 class="section-title reveal">Co AI nikdy nesmí<br/><span class="gold">předstírat</span></h2>
-      <div class="ethics-list reveal">
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>není Bůh.</strong></span>
-        </div>
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>není Kristus.</strong></span>
-        </div>
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>není kněz.</strong></span>
-        </div>
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>neuděluje rozhřešení.</strong></span>
-        </div>
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>neslouží eucharistii.</strong></span>
-        </div>
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>nenahrazuje svátosti.</strong></span>
-        </div>
-        <div class="ethics-item">
-          <span class="ethics-cross">✕</span>
-          <span>AI <strong>nenahrazuje lidské doprovázení.</strong></span>
-        </div>
-        <div class="ethics-divider"></div>
-        <div class="ethics-item ethics-yes">
-          <span class="ethics-check">✓</span>
-          <span>AI má být <strong>most, ne modla.</strong></span>
-        </div>
-        <div class="ethics-item ethics-yes">
-          <span class="ethics-check">✓</span>
-          <span>AI má vést člověka k <strong>pravdě, komunitě a Bohu</strong>, ne k závislosti na stroji.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MANIFEST -->
+  <!-- D: MANIFEST -->
   <section id="manifest" class="section section-chapel">
     <div class="container narrow">
-      <div class="section-label reveal">Náš záměr</div>
-      <h2 class="section-title reveal"><span class="gold">Manifest</span><br/>nové digitální oratoře</h2>
-      <div class="manifest-text reveal">
-        <p>Nechceme zachránit starou fasádu. <strong>Chceme zachránit živou víru.</strong></p>
-        <p>Nechceme nahradit Boha technologií. <strong>Chceme přinést Boha do světa, kde lidé skutečně žijí.</strong></p>
-        <p>Nechceme další církevní web. <strong>Chceme místo, kde se člověk zastaví, slyší evangelium, vede rozhovor se svědomím, najde společenství a znovu se nadechne.</strong></p>
-        <p class="manifest-final">Protože jestli církev nepůjde do digitálního světa, <strong>digitální svět si vytvoří vlastní bohy.</strong></p>
+      <div class="section-eyebrow reveal">Manifest</div>
+      <div class="manifest-body reveal">
+        <p>Nechceme zachránit starou fasádu.<br/><strong>Chceme zachránit živou víru.</strong></p>
+        <p>Nechceme nahradit Boha technologií.<br/><strong>Chceme přinést slovo tam, kde lidé skutečně žijí.</strong></p>
+        <p>Nechceme další církevní web.<br/><strong>Chceme místo, kde se člověk zastaví a dovolí si říct pravdu.</strong></p>
+        <div class="manifest-final">
+          <p>Jestli církev nepůjde do digitálního světa,<br/><strong>digitální svět si vytvoří vlastní bohy.</strong></p>
+        </div>
       </div>
     </div>
   </section>
@@ -454,84 +182,18 @@
   <footer id="footer">
     <div class="footer-inner">
       <div class="footer-logo">ORATOR<span class="gold">AI</span></div>
-      <p class="footer-tagline">Digitální oratoř pro věk umělé inteligence.<br/>Víra, člověk a AI v dialogu.</p>
+      <p class="footer-tagline">Prostor pro otázky, které si většina lidí nechává pro sebe.</p>
       <nav class="footer-nav">
-        <a href="#chapel">Digitální kaple</a>
-        <a href="#evangelium">Evangelium</a>
-        <a href="#homilie">Homilie</a>
-        <a href="#conscience">Rozhovor se svědomím</a>
-        <a href="#apostles">Stůl apoštolů</a>
-        <a href="#parishes">Pro farnosti</a>
-        <a href="#ethics">Etické hranice</a>
+        <a href="#svedomi">Svědomí</a>
+        <a href="#hlasy">Komunita hlasů</a>
+        <a href="#manifest">Manifest</a>
       </nav>
       <p class="footer-legal">
-        Tento web je prototyp. Nevytváří žádné teologické závazky. AI obsah nevyjadřuje stanovisko žádné církevní instituce.<br/>
+        AI není Bůh. AI není kněz. AI obsah nevyjadřuje stanovisko žádné církevní instituce.<br/>
         &copy; 2025 ORATORAI · oratorai.cz
       </p>
     </div>
   </footer>
-
-  <!-- LITURGY MODAL -->
-  <div class="modal-overlay" id="liturgyModal">
-    <div class="modal">
-      <button class="modal-close" id="liturgyClose">✕</button>
-      <h2>Nedělní liturgie slova</h2>
-      <div class="modal-content">
-        <div class="liturgy-block">
-          <div class="liturgy-step-header">
-            <span class="step-badge">01</span>
-            <h3>Úvodní zastavení</h3>
-          </div>
-          <p>Utište se. Odložte telefon. Uvědomte si, že jste zde spolu. Chvíle ticha.</p>
-          <blockquote>„Ve jménu Otce i Syna i Ducha Svatého. Jsme zde spolu, abychom slyšeli slovo a žili z něj."</blockquote>
-        </div>
-        <div class="liturgy-block">
-          <div class="liturgy-step-header">
-            <span class="step-badge">02</span>
-            <h3>Čtení</h3>
-          </div>
-          <p>Čtení z Knihy proroka Izaiáše (55, 1–3):</p>
-          <blockquote>„Pojďte ke mně všichni, kdo žízníte, přijďte k vodě, i vy, kdo nemáte peníze... Nakloňte ucho a přijďte ke mně, slyšte a budete žít."</blockquote>
-        </div>
-        <div class="liturgy-block">
-          <div class="liturgy-step-header">
-            <span class="step-badge">03</span>
-            <h3>Evangelium</h3>
-          </div>
-          <blockquote>„Já jsem chléb života. Kdo přichází ke mně, nebude hladovět." (Jan 6, 35)</blockquote>
-        </div>
-        <div class="liturgy-block">
-          <div class="liturgy-step-header">
-            <span class="step-badge">04</span>
-            <h3>AI Homilie</h3>
-          </div>
-          <p>Proč jsme tak hladoví, když máme všeho dost? Protože hlad duše je hlubší než hlad těla. Dnešní svět umí nakrmit tělo. Ale duši? Na to nemá recept...</p>
-        </div>
-        <div class="liturgy-block">
-          <div class="liturgy-step-header">
-            <span class="step-badge">05</span>
-            <h3>Přímluvy</h3>
-          </div>
-          <p>Za všechny, kdo jsou dnes sami. Za ty, kdo ztratili víru. Za komunity bez kněze. Za lidi přemožené úzkostí. Za mír ve světě.</p>
-          <p><em>Po každé přímluvy: „Prosíme tě, vyslyš nás."</em></p>
-        </div>
-        <div class="liturgy-block">
-          <div class="liturgy-step-header">
-            <span class="step-badge">06</span>
-            <h3>Společná modlitba</h3>
-          </div>
-          <blockquote>„Otče náš, jenž jsi na nebesích..."</blockquote>
-        </div>
-        <div class="liturgy-block highlight">
-          <div class="liturgy-step-header">
-            <span class="step-badge">07</span>
-            <h3>Výzva týdne</h3>
-          </div>
-          <p><strong>Tento týden: Navštiv nebo zavolej člověku, o kterém víš, že je sám. Ne proto, že musíš. Ale proto, že evangelium to dělá.</strong></p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>
