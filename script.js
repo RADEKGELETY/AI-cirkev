@@ -260,14 +260,8 @@ function closeModal() {
 
 /* ===== CONSCIENCE CHAT ===== */
 
-// Konverzační paměť
-const conversationState = {
-  turn: 0,           // kolikátá zpráva od uživatele
-  lastTopic: null,   // poslední rozpoznané téma
-  deepened: false,   // jestli jsme už šli do hloubky
-};
+const conversationState = { turn: 0, lastTopic: null };
 
-// Normalizace textu pro matching
 function norm(s) {
   return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
@@ -296,89 +290,89 @@ function detectTopic(text) {
   return null;
 }
 
-// ── PRVNÍ VRSTVA: empatické přijetí ─────────────────────────────
+// ── PRVNÍ VRSTVA: čisté naslouchání, žádná moudrost, žádné citáty ──
 const firstLayerByTopic = {
-  lez:       'To, že to říkáš, je samo o sobě malá odvaha. Lhát je těžké — a nesení té lži bývá ještě těžší. Kdy to začalo? Byl to jeden moment, nebo se to nějak postupně vrstvilo?',
-  hnev:      'Slyším tě. Hněv bývá jedna z nejosamocenějších věcí — uvnitř hoříš, a ostatní většinou netuší. Stalo se něco konkrétního, co to spustilo? Nebo to bylo dlouho pod povrchem?',
-  pycha:     'Být upřímný k sobě v tomhle — to je víc, než si myslíš. Pýcha se těžko pojmenovává. Kdy sis toho naposledy všiml/a na sobě? V čem konkrétně?',
-  zavist:    'Tohle bolí, že? Vidět u druhého něco, co chceš, a cítit se kvůli tomu menší. Čeho se ta závist vlastně týká — věcí, vztahů, nebo třeba uznání, které ti někdo nedal?',
-  odpusteni: 'Odpuštění je asi jedna z nejtěžších věcí, co existuje. Ne proto, že jsme špatní — ale proto, že bolest je reálná. Co se ti stalo? Pokud chceš, řekni mi víc.',
-  samota:    'To, co popisuješ, je opravdová bolest. Samota uprostřed lidí je jiná než samota v tichu — bývá daleko hlubší. Jak dlouho se tak cítíš?',
-  strach:    'Rozumím. Strach dokáže být tichý i hlasitý zároveň — a vyčerpává. Čeho konkrétně se bojíš? Z čeho se probouzíš v noci, nebo co tě napadá, když se zastavíš?',
-  hrich:     'Jsem rád/a, že jsi to řekl/a. Tady není soud. To, že to neseš, znamená, že ti záleží — a to je důležité. Co se stalo? Nebo co tě tíží?',
-  smysl:     'To, co popisuješ, je těžké. Prázdnota nebo pocit, že to nemá cenu — to není slabost, je to signál. Kdy naposledy jsi cítil/a, že tvůj život má smysl? Co se tehdy dělo?',
-  vztah:     'Vztahy jsou místo, kde jsme nejvíc zranitelní. A taky nejvíc živí. Co se děje? Chceš mi říct víc o tom, co prožíváš?',
-  zavislost: 'Díky, že to říkáš. Tohle se říká těžko. Závislost není selhání charakteru — je to past, ze které se nevychází silou vůle samotnou. Jak dlouho s tím bojuješ?',
-  vira:      'Pochybovat není selhat. Je to poctivé. Ježíš měl kolem sebe lidi, kteří pochybovali — a nevyhnal je. Co se ti stalo s vírou? Kdy to začalo mizet?',
+  lez:       'To chce odvahu — říct to takhle rovnou. A já to slyším. Kdy to vlastně začalo? Byl to jeden konkrétní moment, nebo se to nějak vrstvilo postupně?',
+  hnev:      'Slyším tě. Hněv bývá jedna z nejosamělejších věcí — uvnitř hoříš a okolí většinou netuší. Stalo se něco konkrétního, nebo to bylo dlouho pod povrchem?',
+  pycha:     'To, že to vůbec vidíš na sobě — to není málo. Pýcha se pojmenovává těžko. V čem konkrétně to cítíš? Kdy sis toho naposledy všiml/a?',
+  zavist:    'To bolí, viď. Vidět u druhého něco, co chceš, a pak ten ošklivý pocit v sobě. Čeho se to vlastně týká — věcí, vztahů, uznání? Co ti ten člověk připomíná, že chybí?',
+  odpusteni: 'Odpuštění je asi jedna z nejtvrdších věcí, co existují. Ne proto, že jsme špatní — ale proto, že ta bolest je reálná. Co se ti stalo? Řekni mi víc, pokud chceš.',
+  samota:    'To je opravdová bolest. Samota uprostřed lidí je jiná než být sám v tichu — ta první bývá mnohem hlubší. Jak dlouho to trvá?',
+  strach:    'Rozumím. Strach dokáže být zároveň tichý i hlasitý — a hrozně vyčerpávající. Z čeho konkrétně? Co se ti honí hlavou, když se zastavíš?',
+  hrich:     'Jsem rád/a, že jsi to řekl/a. Tady není žádný soud. Že to neseš, znamená, že ti záleží — a to je důležité. Co se stalo?',
+  smysl:     'To je těžké. Taková prázdnota nebo pocit, že to nemá cenu — to není slabost, to je signál. Kdy naposledy jsi věděl/a, že tvůj den má smysl? Co se tehdy dělo?',
+  vztah:     'Vztahy jsou místo, kde jsme nejvíc živí — a zároveň nejvíc zranitelní. Co se děje? Chceš mi říct víc?',
+  zavislost: 'Díky, že to říkáš. Tohle se říká těžko. Závislost není selhání charakteru — je to past. Jak dlouho s tím zápasíš?',
+  vira:      'Pochybovat není selhat. Je to poctivé. Co se stalo s tou vírou? Kdy jsi začal/a cítit, že mizí?',
 };
 
-// ── DRUHÁ VRSTVA: prohloubení + moudrost ────────────────────────
+// ── DRUHÁ VRSTVA: moudrost vetkána přirozeně do řeči, bez oznamování zdrojů ──
 const secondLayerByTopic = {
   lez: [
-    'Augustin napsal ve Vyznáních: „Naše srdce je neklidné, dokud nespočine v tobě." Lež bývá pokus o klid, který ale pravý klid nenese — protože uvnitř víme. Co tě k té nepravdě vedlo? Strach? Ochrana sebe nebo druhého?',
-    'Ježíš neřekl: „Já jsem pravidlo." Řekl: „Já jsem pravda." (Jan 14,6) To je jiné — pravda není zákon, je to setkání. Kdybys mohl/a říct pravdu bez trestu, co bys řekl/a?',
+    'Víš, co mi na lži přijde zajímavé? Bývá to pokus o klid — jenže ten klid nepřijde, protože uvnitř to víme. Říká se, že pravda není zákon, je to setkání. Kdybys mohl/a říct pravdu bez trestu — co by to bylo?',
+    'A co tě k tomu vedlo? Strach z reakce? Snaha ochránit sebe nebo druhého? Protože to je jiné — jedno volání o pomoc, druhé akt péče. Je důležité vědět, čeho to bylo.',
   ],
   hnev: [
-    'Pavel píše: „Hněváte-li se, nehřešte. Slunce ať nezapadá nad vaším hněvem." (Ef 4,26) Hněv sám není hřích — je to signál. Za každým hlubokým hněvem bývá buď strach, nebo bolest. Co je u tebe pod tím hněvem?',
-    'Don Bosco říkával: „Kdo se ovládne, je silnější než ten, kdo dobývá města." Ale ovládat nestačí — je třeba pochopit. Co ti ten člověk nebo situace vlastně vzali? Bezpečí? Důstojnost? Lásku?',
+    'Za každým hlubokým hněvem bývá buď strach, nebo bolest. Hněv sám o sobě není špatný — je to signál. Co je u tebe pod tím? Co ti ten člověk nebo ta situace vlastně vzali?',
+    'Ovládat se nestačí — je třeba pochopit. Dokud nevíme, co nás rozpaluje, tak to přijde znovu a znovu. Bezpečí? Důstojnost? Pocit, že nejsi slyšen/a? Co to bylo?',
   ],
   pycha: [
-    'Benedikt z Nursie v Řeholi píše, že pokora začíná tím, že přijmeme, že nic nevlastníme jako čistě své — ani talent, ani úspěch. Všechno je dar. Je něco, za co si bereš zásluhy, a přitom to cítíš jako křehké?',
-    'Jan Pavel II. říkal: „Člověk nemůže sám sebe plně pochopit bez Krista." Pýcha je pokus pochopit se bez vztahu — bez toho, že nás někdo zná i tam, kde nejsme nejlepší. Kdo tě takto zná?',
+    'Je tam jedna věc, co mi na pýše přijde zajímavá — bývá křehká. Chováme se povýšeně nejvíc v oblastech, kde se vnitřně cítíme nejistí. Kde tě to v životě trápí nejvíc?',
+    'Kdo tě v životě zná i tam, kde nejsi nejlepší? Kdo vidí i tu stínovou stránku — a zůstane? Pýcha bývá pokus pochopit se bez toho vztahu. Máš takového člověka?',
   ],
   zavist: [
-    'Tereza z Lisieux psala: „Nejsem svatá, která upadla z nebe — jsem duše, která sbírá milosti na zemi." Každý z nás má jinou cestu a jinou rychlost. Co je hodnotné na tvé vlastní cestě, i když to teď nevidíš?',
-    'Jan Zlatoústý napsal: „Závidět je jako vypít jed a čekat, že zemře druhý." Závist nás ničí zevnitř. Ale pod ní bývá oprávněný hlad — po uznání, lásce, úspěchu. Co konkrétně ti chybí?',
+    'Pod závistí bývá oprávněný hlad — po uznání, lásce, úspěchu. Závist sama o sobě říká: tohle mi chybí. To není odsouzení, to je informace. Co konkrétně ti chybí?',
+    'Každý z nás má jinou cestu a jinou rychlost. Snadno srovnáváme svůj vnitřní zmatek s vnější fasádou druhých — a to je přirovnání, které vždy prohrajeme. Co je hodnotné na tvé vlastní cestě, i když to teď nevidíš?',
   ],
   odpusteni: [
-    'C.S. Lewis napsal: „Odpustit neznamená říci, že nezáleželo na tom, co se stalo. Znamená to říci: nezáleží mi na tom natolik, abych tím dál trávil svůj život." Jak dlouho to s sebou neseš? A kolik energie ti to bere?',
-    'Lukáš 15 — otec vidí syna zdaleka a běží mu naproti. Nečeká na omluvu. To je obraz Boha — ne soudce s čekacím listem, ale otec, který sleduje horizont. Kde jsi ty v tom příběhu?',
+    'Odpustit neznamená říct, že nezáleželo na tom, co se stalo. Znamená to rozhodnout se nenechat to řídit svůj život dál. Kolik energie ti to teď bere? Jak dlouho to s sebou neseš?',
+    'Je v evangeliu jeden příběh — otec vidí syna zdaleka a běží mu naproti. Nečeká na omluvu. To je obraz, jak Bůh funguje — ne soudce s čekacím listem, ale někdo, kdo sleduje horizont. Kde jsi ty v tom příběhu?',
   ],
   samota: [
-    'Matka Tereza říkávala: „Největší nemocí dnešní doby není lepra — je to pocit, že nikdo o nás nestojí." Tenhle pocit je opravdový. A zároveň — i ten pocit může být začátek otevření. Je někdo, komu bys dnes mohl/a zavolat?',
-    'Žalm 139: „Kamkoli jdu, ty jsi tam. I kdybych si ustlal v podsvětí, jsi tam." Bůh neodchází, i když ho necítíme. Ale samota bývá také znamení, že potřebujeme lidské společenství. Co ti v tom brání?',
+    'Říká se, že největší nemocí dnešní doby není nemoc těla — je to pocit, že o nás nikomu nezáleží. Tenhle pocit je reálný. A zároveň — i ten pocit může být začátek otevření. Je někdo, komu bys dnes mohl/a zavolat?',
+    'I v hluboké samotě platí jedno — Bůh neodchází, i když ho necítíme. Ale samota je zároveň zpráva: potřebuješ společenství. Co ti brání udělat první krok k někomu blízkému?',
   ],
   strach: [
-    'Izaiáš 43: „Neboj se, já jsem tě vykoupil, povolal jsem tě tvým jménem, ty jsi můj." Tato slova nebyla řečena lidem bez problémů — byla řečena lidem v exilu, v rozpadlém světě. Zkusil/a jsi někdy říct ten strach Bohu přímo? Bez zbožné formulace — jen tak, jak to je?',
-    'Sv. Faustyna psala v Deníčku: „Ježíši, důvěřuji ti." Ne jako pocit — jako rozhodnutí. Někdy je víra jen tohle: udělat jeden krok, i když nevíme, co bude dál. Jaký by byl tvůj jeden krok dnes?',
+    'Jsou slova z Izaiáše: „Neboj se, povolal jsem tě jménem tvým, ty jsi můj." Nebyla řečena lidem bez problémů — byla řečena lidem v exilu, v rozpadlém světě. Zkusil/a jsi někdy říct ten strach Bohu přímo? Ne zbožně — jen tak, jak to je?',
+    'Víra někdy není pocit. Je to rozhodnutí. Udělat jeden krok, i když nevíme, co bude dál. Jaký by byl pro tebe ten jeden krok dnes — malý, ale reálný?',
   ],
   hrich: [
-    'Sv. Jan Maria Vianney říkával: „Bůh je ochotnější odpustit než my jsme ochotni prosit." Největší překážka odpuštění nejsme naše skutky — je to přesvědčení, že jsme neodpustitelní. Cítíš se hoden/hodna odpuštění?',
-    'Ježíš říká v Matoušovi: „Nepřišel jsem volat spravedlivé, ale hříšníky." (Mt 9,13) Ne jako výtku — jako pozvání. Bůh nepřichází ke spravedlivým. Přichází k těm, kdo vědí, že selžou. Kde se teď nacházíš ty?',
+    'Bůh je ochotnější odpustit, než my jsme ochotni prosit. Největší překážka odpuštění nejsme naše skutky — je to přesvědčení, že nejsme hodni. Cítíš se hoden/hodna toho, aby ti bylo odpuštěno?',
+    'Ježíš neříkal: přijdu ke spravedlivým. Říkal: přišel jsem k těm, kdo vědí, že selžou. Není to výtka — je to pozvání. Kde se teď nacházíš ty? Jak blízko nebo daleko od toho pozvání?',
   ],
   smysl: [
-    'Viktor Frankl přežil koncentrační tábor a napsal: „Člověk může přežít jakékoli jak, pokud má proč." Co bylo tvoje proč — dřív? A kdy to začalo ztrácet sílu?',
-    'Ignác z Loyoly říkal: musíš zjistit, co tě vnitřně pohybuje — co tě osvobozuje a co tě svírá. To, co tě pohybuje k větší svobodě a lásce, je Bůh. Co tě teď pohybuje? Kam?',
+    'Přežít cokoliv jde, pokud víme proč. To řekl člověk, který prošel koncentrákem a vyšel z toho s myšlenkami, co platí dodnes. Co bylo tvoje proč — dřív? A kdy to začalo ztrácet sílu?',
+    'Je jedna otázka, která mi přijde důležitá: co tě pohybuje? Ne co tě nutí — co tě pohybuje zevnitř, dobrovolně. Co tě osvobozuje a co tě svírá. Když to poznáš, je tam stopa ke smyslu.',
   ],
   vztah: [
-    'František v Amoris Laetitia píše: „Pravá láska je volba, která se každý den obnovuje." Vztahy nejsou stav — jsou to pohyby. Kde cítíš, že se pohyb zastavil? Co chybí?',
-    'Píseň písní říká: „Jsem nemocná láskou." (2,5) Bible neidealizuje vztahy — zná jejich krásu i bolest. Co ve tvém vztahu nebo ztrátě vztahu tě bolí nejvíc?',
+    'Pravá láska není stav, je to pohyb — volba, která se každý den obnovuje. Kde cítíš, že se ten pohyb zastavil? Co chybí — přítomnost, bezpečí, respekt, nebo jen prosté: být viděn/a?',
+    'Bible neidealizuje vztahy. Zná jejich krásu i bolest. Co ve tvém vztahu nebo v té ztrátě tě bolí úplně nejvíc? Pojmenuj to — třeba jen pro sebe.',
   ],
   zavislost: [
-    'Augustin v Vyznáních: „Naše srdce je neklidné, dokud nespočine v tobě." Mnohé závislosti jsou pokus uklidnit neklidné srdce — rychle, spolehlivě, bez čekání. Co cítíš těsně předtím, než sáhneš po té věci?',
-    'Pavel píše: „Ničím se nedám zotročit." (1 Kor 6,12) Závislost je forma otroctví — ne morální výpadek, ale nemoc duše i těla. A stejně jako každá nemoc — potřebuje pomoc zvenku. Víš, kde ji hledat?',
+    'Naše srdce je neklidné, dokud nenajde pokoj. Závislost je hodně o tom — snaha uklidnit to neklidné rychle, spolehlivě, bez čekání. Co cítíš těsně předtím, než po té věci sáhneš? Co tě k tomu spouští?',
+    'Závislost není morální výpadek — je to nemoc. A stejně jako každá nemoc, potřebuje pomoc zvenku. Sám se z toho silou vůle nevypleteš — to potvrdí každý, kdo to zažil. Víš, kde takovou pomoc hledat?',
   ],
   vira: [
-    'Tomáš říká Ježíšovi: „Dokud neuvidím, neuvěřím." A Ježíš přijde a ukáže — bez výčitky. Pochybnost není hřích. Je to poctivost. Co konkrétně tě přivedlo k pochybnostem — byl to zážitek, nebo postupné vyčerpání?',
-    'Newman napsal: „Srdce mluví k srdci." Víra se neobnoví argumenty — obnovuje se setkáním. S lidmi, s tichem, s příběhem. Je ve tvém životě někdo nebo něco, co tě k víře ještě táhne, i slabě?',
+    'Tomáš říká Ježíšovi: dokud neuvidím, neuvěřím. A Ježíš přijde a ukáže — bez výčitky, bez řeči. Pochybovat není hřích. Je to poctivost. Co konkrétně tě přivedlo k pochybnostem — byl to zážitek, nebo postupné vyčerpání?',
+    'Víra se neobnoví argumenty. Obnovuje se setkáním — s lidmi, s tichem, s příběhem. Je ve tvém životě ještě někdo nebo něco, co tě k víře táhne — i slabě, i nejistě?',
   ],
 };
 
-// ── TŘETÍ VRSTVA: završení, pozvání dál ─────────────────────────
+// ── TŘETÍ VRSTVA: závěr, pozvání k živému člověku ──────────────
 const thirdLayer = [
-  'Tohle, co jsi dnes řekl/a, nezmizí. Zůstane s tebou — a snad trochu jinak. Není to konec rozhovoru, je to možná začátek. Přemýšlíš, že bys to jednou probral/a s živým člověkem — knězem, terapeutem, nebo přítelem, kterému věříš?',
-  'Jsem jenom AI. Neumím tě rozhřešit ani tě obejmout. Ale tohle — pojmenovat to nahlas — je víc, než si myslíš. Ježíš říká: „Pravda vás osvobodí." Možná je tohle první krok. Co teď cítíš?',
-  'Jedno slovo od Františka: „Bůh se nikdy neunaví odpouštět. My se unavíme prosit." Jestli v tobě ještě zbývá kousek touhy se vrátit — Bůh je otevřený. Co by byl tvůj první krok zpátky?',
-  'Tenhle rozhovor má své hranice. Ale ty ho nemáš — můžeš jít hlouběji, s živým člověkem. Je ve tvém životě kněz, duchovní průvodce nebo terapeut, kterému bys mohl/a tohle svěřit?',
+  'Musím být upřímný/á — jsem AI. Neumím tě rozhřešit, ani obejmout, ani být skutečně přítomný/á. Ale tohle, co jsi dnes pojmenoval/a, je víc, než si myslíš. Přemýšlíš, že bys to jednou probral/a s živým člověkem — knězem, terapeutem, nebo přítelem?',
+  'Tenhle rozhovor má své hranice — a je dobré to říct rovně. Jsi ale na správné stopě. Je ve tvém životě někdo, komu bys to mohl/a svěřit? Kněz, duchovní průvodce, terapeut — někdo, kdo tě zná nebo tě chce poznat?',
+  'Víš, co mě na tom, co říkáš, dojímá? Že jsi sem vůbec přišel/přišla. To není náhoda. Je to touha něco změnit. Bůh se té touze neposmívá. Co by byl tvůj první malý krok — ne velký hrdinský čin, jen jeden krok?',
+  'Tady se náš rozhovor začíná dotýkat hranic toho, co AI dokáže. A to je správně — protože ty potřebuješ víc než text na obrazovce. Potřebuješ člověka. Napadá tě, kdo by to mohl být?',
 ];
 
-// ── FALLBACKY pro nerozpoznaný text ─────────────────────────────
+// ── FALLBACKY: přirozené otevírání rozhovoru ───────────────────
 const fallbacks = [
-  'Jsem tady a poslouchám. Nemusíš to formulovat dokonale — řekni to tak, jak to je. Co se děje?',
-  'Rozumím, že je to těžké pojmenovat. Zkus začít od toho, co tě teď tíží nejvíc — třeba jednou větou.',
-  'Žalm 139 říká: „Zkoumej mě, Bože, a poznej mé srdce." Tohle není odsouzení — je to pozvání k upřímnosti. Co bys chtěl/a, aby Bůh o tobě věděl?',
-  'Ježíš se ptá v evangeliu: „Co chceš, abych pro tebe udělal?" (Mk 10,51) Prostá otázka. Co bys odpověděl/a?',
-  'Někdy je nejtěžší věc říct to první. Co tě sem dnes přivedlo?',
+  'Jsem tady. Nemusíš to formulovat dokonale — řekni to tak, jak to je. Co se děje?',
+  'Těžko se to pojmenovává, vím. Zkus začít od toho, co tě teď tíží nejvíc — třeba jen jednou větou.',
+  'Co tě sem dnes přivedlo? Ne co bys měl/a říct — co skutečně cítíš?',
+  'Jsi tady, a to něco znamená. Co neseš?',
+  'Neposuzuji tě. Jsem tady. Co se děje?',
 ];
 
 // ── HLAVNÍ LOGIKA ODPOVĚDI ───────────────────────────────────────
