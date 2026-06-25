@@ -107,17 +107,38 @@
   <section id="vibe-praying" class="section section-chapel">
     <div class="container narrow">
       <div class="section-eyebrow reveal">Vibe Praying</div>
-      <h2 class="section-heading reveal">Modlitba pro digitální dobu.</h2>
-      <div class="vibe-body reveal">
-        <p>Nejde o správné odpovědi.</p>
-        <p>Jde o zastavení.</p>
-        <p>O otázky.</p>
-        <p>O ticho.</p>
-        <p>O rozhovor.</p>
-        <p>O hledání.</p>
+      <h2 class="section-heading reveal">Slova pro chvíle,<br/><span class="gold">kdy ta vlastní nestačí.</span></h2>
+
+      <!-- Vstupní fáze -->
+      <div class="vibe-input reveal" id="vibeInput">
+        <div class="vibe-write">
+          <textarea class="vibe-textarea" id="vibeTextarea" placeholder="Napiš jedno slovo. Nebo víc. Co teď cítíš?" rows="2"></textarea>
+          <button class="vibe-send-btn" id="vibeSend">Dej mi slova →</button>
+        </div>
+        <div class="vibe-divider">nebo</div>
+        <div class="vibe-chips-wrap">
+          <p class="vibe-chips-label">Nevím kde začít</p>
+          <div class="vibe-chips">
+            <button class="vibe-chip" data-feeling="strach">Strach</button>
+            <button class="vibe-chip" data-feeling="vdecnost">Vděčnost</button>
+            <button class="vibe-chip" data-feeling="zmatek">Zmatek</button>
+            <button class="vibe-chip" data-feeling="unava">Únava</button>
+            <button class="vibe-chip" data-feeling="touha">Touha</button>
+            <button class="vibe-chip" data-feeling="smutek">Smutek</button>
+            <button class="vibe-chip" data-feeling="nadeje">Naděje</button>
+            <button class="vibe-chip" data-feeling="ticho">Ticho</button>
+          </div>
+        </div>
       </div>
-      <div class="vibe-cta reveal">
-        <a href="#svedomi" class="btn-vibe">Vstoupit do Vibe Praying</a>
+
+      <!-- Modlitba -->
+      <div class="vibe-prayer" id="vibePrayer" hidden>
+        <div class="vibe-light">
+          <div class="vibe-glow"></div>
+        </div>
+        <p class="vibe-prayer-text" id="vibePrayerText"></p>
+        <p class="vibe-stay">Zůstaň s tím.</p>
+        <button class="vibe-reset" id="vibeReset">← Jiné slovo</button>
       </div>
     </div>
   </section>

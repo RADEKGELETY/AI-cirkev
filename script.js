@@ -416,3 +416,78 @@ document.getElementById('nextDialog').addEventListener('click', () => {
 
 currentDialog = Math.floor(Math.random() * dialogs.length);
 renderDialog(currentDialog);
+
+/* ===== VIBE PRAYING ===== */
+const vibePrayers = {
+  strach:   'Bože, bojím se.\nNevím přesně čeho.\nMožná sám sebe.\nMožná toho, co přijde.\nBuď větší než ten strach.\nTo je vše, co teď dokážu říct.',
+  vdecnost: 'Bože, dnes chci říct díky.\nNe za velké věci.\nZa světlo ráno.\nZa to, že jsem tady.\nZa to, že přes všechno — stojím.\nDíky.',
+  zmatek:   'Bože, nevím kudy.\nCesty se mi pletou.\nHlasy jsou příliš hlasité.\nDej mi alespoň jedno slovo.\nJedno světlo.\nStačí to.',
+  unava:    'Bože, jsem unavený.\nNe slabostí — životem.\nDovol mi na chvíli složit to, co nesu.\nNechci odpovědi.\nChci odpočinout.\nJsi tady?',
+  touha:    'Bože, něco hledám.\nNevím přesně co.\nAle ta touha je reálná.\nMožná je to ty.\nMožná jsem to já.\nVeď mě blíž.',
+  smutek:   'Bože, bolí to.\nNevím jak to jinak říct.\nBolí to a nevím proč.\nBuď s tím se mnou.\nJá to sám neudám.',
+  nadeje:   'Bože, věřím.\nNe vždy. Ne silně.\nAle trochu — věřím.\nŽe tma není poslední slovo.\nŽe tohle všechno má smysl.\nDrž tu víru, když ji já ztratím.',
+  ticho:    'Bože.\n...\nJsem tady.\nNic víc.',
+};
+
+function detectFeeling(text) {
+  const t = text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  if (/strac|boji|strach|uzkost|panika/.test(t)) return 'strach';
+  if (/diky|vdecn|dekuj|podekov/.test(t)) return 'vdecnost';
+  if (/zmatek|nevim|zmaten|nerozumi/.test(t)) return 'zmatek';
+  if (/unav|vycerp|nemam sil|uz nejde/.test(t)) return 'unava';
+  if (/touz|hledam|touha|povolani/.test(t)) return 'touha';
+  if (/smut|boli|bolest|plac/.test(t)) return 'smutek';
+  if (/nadej|doufam|verim|snad/.test(t)) return 'nadeje';
+  return 'ticho';
+}
+
+const vibeInputEl  = document.getElementById('vibeInput');
+const vibePrayerEl = document.getElementById('vibePrayer');
+const vibePrayerTextEl = document.getElementById('vibePrayerText');
+const vibeTextareaEl   = document.getElementById('vibeTextarea');
+
+function showVibePrayer(feeling) {
+  vibeInputEl.style.opacity = '0';
+  vibeInputEl.style.transform = 'translateY(-10px)';
+  setTimeout(() => {
+    vibeInputEl.hidden = true;
+    vibePrayerTextEl.textContent = vibePrayers[feeling] || vibePrayers.ticho;
+    vibePrayerEl.style.opacity = '0';
+    vibePrayerEl.style.transform = 'translateY(16px)';
+    vibePrayerEl.hidden = false;
+    void vibePrayerEl.offsetHeight; // force reflow — commits initial state before transition
+    vibePrayerEl.style.opacity = '1';
+    vibePrayerEl.style.transform = 'translateY(0)';
+  }, 350);
+}
+
+document.getElementById('vibeSend').addEventListener('click', () => {
+  const text = vibeTextareaEl.value.trim();
+  if (!text) return;
+  showVibePrayer(detectFeeling(text));
+});
+
+vibeTextareaEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    document.getElementById('vibeSend').click();
+  }
+});
+
+document.querySelectorAll('.vibe-chip').forEach(chip => {
+  chip.addEventListener('click', () => showVibePrayer(chip.dataset.feeling));
+});
+
+document.getElementById('vibeReset').addEventListener('click', () => {
+  vibePrayerEl.style.opacity = '0';
+  setTimeout(() => {
+    vibePrayerEl.hidden = true;
+    vibeTextareaEl.value = '';
+    vibeInputEl.style.opacity = '0';
+    vibeInputEl.style.transform = 'translateY(10px)';
+    vibeInputEl.hidden = false;
+    void vibeInputEl.offsetHeight; // force reflow
+    vibeInputEl.style.opacity = '1';
+    vibeInputEl.style.transform = 'translateY(0)';
+  }, 350);
+});
